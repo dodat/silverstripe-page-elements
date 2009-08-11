@@ -70,9 +70,9 @@ class HTMLElementEditorField extends TextareaField
 	
 	public function FieldHolder() {
 		
-		Requirements::javascript(KELP_DIR.'/javascript/jquery.1.3.js');
-		Requirements::javascript(KELP_DIR.'/javascript/jquery.wysiwyg.js');
-		Requirements::css(KELP_DIR.'/css/jquery.wysiwyg.css');
+		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
+		Requirements::javascript(SSPE_DIR.'/javascript/jquery.wysiwyg.js');
+		Requirements::css(SSPE_DIR.'/css/jquery.wysiwyg.css');
 		Requirements::customScript("
 			jQuery(function() {
 				jQuery('#{$this->id()}').wysiwyg({

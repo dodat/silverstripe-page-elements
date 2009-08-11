@@ -4,8 +4,8 @@
  *
  */
 
-define('KELP_DIR', 'kelp');
-define('KELP_PATH', BASE_PATH . '/' . KELP_DIR);
+define('SSPE_DIR', 'kelp');
+define('SSPE_PATH', BASE_PATH . '/' . SSPE_DIR);
 
 
 

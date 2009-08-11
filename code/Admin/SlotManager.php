@@ -27,8 +27,8 @@ class SlotManager extends ComplexTableField {
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.core.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.draggable.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.sortable.js");
-		Requirements::javascript(KELP_DIR."/javascript/SlotManager.js");
-		Requirements::css(KELP_DIR."/css/SlotManager.css");
+		Requirements::javascript(SSPE_DIR."/javascript/SlotManager.js");
+		Requirements::css(SSPE_DIR."/css/SlotManager.css");
 		return $ret;
 	}
 	
@@ -41,7 +41,7 @@ class SlotManager extends ComplexTableField {
 			foreach($this->Items() as $Item) {
 				
 				if($Item->Name == $Name) {
-					$AddIcon = KELP_DIR . "/images/Element_add.png";
+					$AddIcon = SSPE_DIR . "/images/Element_add.png";
 					$Slot = $this->controller->Slot($Name);
 					$ret .=<<<HTML
 	<table class="data">
