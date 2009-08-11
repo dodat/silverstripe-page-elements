@@ -91,18 +91,18 @@ class Element extends DataObject {
 	}
 	
 	public function getRequirementsForPopup() {
-		Requirements::javascript(KELP_DIR.'/javascript/jquery.1.3.js');
-		//Requirements::javascript(KELP_DIR."/javascript/jquery/jquery-1.3.2.min.js");
-		//Requirements::javascript(KELP_DIR."/javascript/jquery/jquery-ui-1.7.2.custom.min.js");
-		Requirements::javascript(KELP_DIR."/javascript/ElementManager.js");
-		Requirements::css(KELP_DIR."/css/ElementManager.css");
+		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
+		//Requirements::javascript(SSPE_DIR."/javascript/jquery/jquery-1.3.2.min.js");
+		//Requirements::javascript(SSPE_DIR."/javascript/jquery/jquery-ui-1.7.2.custom.min.js");
+		Requirements::javascript(SSPE_DIR."/javascript/ElementManager.js");
+		Requirements::css(SSPE_DIR."/css/ElementManager.css");
 	}
 	
 	
 	public function forCMSTemplate() {
-		$EditIcon = KELP_DIR . "/images/Element_edit.png";
-		$DeleteIcon = KELP_DIR . "/images/Element_delete.png";
-		$DragIcon = KELP_DIR . "/images/Element_drag.png";
+		$EditIcon = SSPE_DIR . "/images/Element_edit.png";
+		$DeleteIcon = SSPE_DIR . "/images/Element_delete.png";
+		$DragIcon = SSPE_DIR . "/images/Element_drag.png";
 		$Content =<<<HTML
 
 <table class="data">
