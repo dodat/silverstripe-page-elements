@@ -77,7 +77,7 @@ class HTMLElementEditorField extends TextareaField
 			jQuery(function() {
 				jQuery('#{$this->id()}').wysiwyg({
 					{$this->getConfig()}
-				}).parents('.htmlcomponenteditor').removeClass('hidden');
+				}).parents('.htmlelementeditor').removeClass('hidden');
 			});
 		");
 		return parent::FieldHolder();		
