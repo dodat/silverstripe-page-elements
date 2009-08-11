@@ -2,7 +2,7 @@
 
 
 define('SSPE_DIR', 'page-elements');
-define('SSPE_PATH', BASE_PATH . '/' . SSPE_DIR);
+define('SSPE_PATH', BASE_PATH . DIRECTORY_SEPARATOR . SSPE_DIR);
 
 
 
