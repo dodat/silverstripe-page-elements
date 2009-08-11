@@ -1,7 +1,7 @@
 <?php
 
 
-define('SSPE_DIR', 'kelp');
+define('SSPE_DIR', 'page-elements');
 define('SSPE_PATH', BASE_PATH . '/' . SSPE_DIR);
 
 
