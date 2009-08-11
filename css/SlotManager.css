@@ -1,0 +1,137 @@
+.SlotManager a:link.editlink,
+.SlotManager a:visited.editlink,
+.SlotManager a:hover.editlink,
+.SlotManager a:active.editlink
+{
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: right;
+}
+
+
+.SlotManager td.actions
+{
+	text-align: right;
+	float: none;
+}
+
+.SlotManager .Slot table.data
+{
+	border-color: #666;
+}
+
+.SlotManager table.data tbody tr td
+{
+	background-color: #ddd;
+	background-image: url('../images/SlotDataTable_bg.png');
+	border: 0 none;
+	padding: 4px 4px 0;
+}
+
+.SlotManager table.data td,
+.SlotManager table.data td h4
+{
+	color: #fff;
+}
+
+.SlotManager div.Slot
+{
+	margin: 0;
+	padding: 0.33%;
+	background-color: #E9E9E9;
+	min-height: 400px;
+	position: relative;
+}
+
+
+.SlotManager div.Element,
+.SlotManager div.Element-holder
+{
+	max-width: 100%;
+	outline: 1px solid #666;
+	padding: 4px;
+	margin: 5px 5px 10px 5px;
+	background-color: #fff;
+	overflow: hidden;
+	clear: both;
+	min-height: 80px;
+}
+
+.SlotManager .Element table
+{
+	width: 100%;
+}
+
+
+.SlotManager div.Element table.data td.handle
+{
+	cursor: move;
+}
+
+
+
+
+/**
+ * generic column layouts for the management interface
+ */
+
+.clear {
+	clear: both;
+}
+
+div.Columns
+{
+	clear: both;
+	width: 99%;
+	background-color: #999;
+	padding: 0.33%;
+	overflow: hidden;
+	outline: 1px solid #666;
+	margin: 1px;
+}
+
+
+
+div.Columns div.Col
+{
+	float: left;
+}
+
+/**
+ * typical layouts
+ */
+
+/** Two Columns **/
+div.Columns.twoCols div.Col.Left
+{
+	width:29%;
+}
+
+div.Columns.twoCols div.Col.Middle-Right
+{
+	margin-left: 0.4%;
+	width: 69%;
+}
+
+
+/** Three Columns **/
+div.Columns.threeCols div.Col.Left
+{
+	width:24%;
+}
+
+div.Columns.threeCols div.Col.Middle
+{
+	width: 48.6%;
+	margin-left: 0.7%;
+}
+
+div.Columns.threeCols div.Col.Right
+{
+	width: 24%;
+	margin-left: 0.7%;
+}
+
+
+
