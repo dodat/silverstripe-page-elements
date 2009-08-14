@@ -32,7 +32,7 @@ class GridPage extends Page {
 	
 	
 	function isValidTemplate($Template) {
-		return (in_array($Template, $this->getSelectableTemplates()));
+		return array_key_exists($Template, $this->getSelectableTemplates());
 	}
 	
 	
@@ -53,7 +53,7 @@ class GridPage extends Page {
 		if($this->Template && $this->isValidTemplate($this->Template)) {
 			$field = new SlotManager($this);
 		} else {
-			$field = new HeaderField("Please choose a Template!");
+			$field = new HeaderField("Please choose a Template.");
 		}
 		
 		$fs->removeFieldFromTab("Root.Content.Main", "Content");
