@@ -5,15 +5,15 @@ class SlotManager extends ComplexTableField {
 	public $template = "SlotManager";
 
 	
-	function __construct(GridPage $controller) {
+	function __construct(GridPage $GridPage) {
 		
 		parent::__construct(
-			$controller,
+			$GridPage,
 			"Slots",
 			"Slot",
 			array("Name" => "Name"),
 			'getCMSFields_forPopup',
-			"`GridPageID`='{$controller->ID}'"
+			"`GridPageID`='{$GridPage->ID}'"
 		);
 		$this->setPopupSize(900, 500);
 		
@@ -69,16 +69,9 @@ HTML;
 	
 	function Template() {
 		if($Template = $this->controller->Template) {
-			if(SSViewer::getTemplateFileByType($Template, 'Layout')) {
-				return $this->renderWith($Template);
-			} else { 
-				SSViewer::flush_template_cache();
-			}
-		} else {
-			SSViewer::flush_template_cache();
+			return $this->renderWith($Template);
 		}
-		
-		return "Please choose a Template first!";
+		return "Please choose a Template";
 	}
 	
 }

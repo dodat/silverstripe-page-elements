@@ -31,6 +31,11 @@ class GridPage extends Page {
 	}
 	
 	
+	function isValidTemplate($Template) {
+		return (in_array($Template, $this->getSelectableTemplates()));
+	}
+	
+	
 	public function getCMSFields(){
 		$fs = parent::getCMSFields();
 		
@@ -41,9 +46,11 @@ class GridPage extends Page {
 			$this->Template
 		);
 		
+		
 		$fs->insertAfter($TemplateField, "ClassName");
 		
-		if($this->Template) {
+		
+		if($this->Template && $this->isValidTemplate($this->Template)) {
 			$field = new SlotManager($this);
 		} else {
 			$field = new HeaderField("Please choose a Template!");
@@ -51,8 +58,8 @@ class GridPage extends Page {
 		
 		$fs->removeFieldFromTab("Root.Content.Main", "Content");
 		
-		$fs->addFieldToTab("Root.Content.Main", $field);
 		
+		$fs->addFieldToTab("Root.Content.Main", $field);
 		
 		Requirements::customScript(<<<JS
 
