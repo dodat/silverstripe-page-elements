@@ -14,7 +14,7 @@ class Element extends DataObject {
 	);
 	
 	static $defaults = array(
-		"Name" => "New Slot Item"
+		"Name" => "New Element"
 	);
 	
 	static $default_sort = "SortOrder";
