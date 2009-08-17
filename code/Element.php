@@ -6,7 +6,9 @@ class Element extends DataObject {
 		"Name" => "Varchar",
 		"SortOrder" => "Int",
 		"ExtraClass" => "Varchar",
-		"ExtraStyles" => "Text"
+		"ExtraStyles" => "Text",
+		"Prefix" => "Text",
+		"Suffix" => "Text"
 	);
 	
 	static $has_one = array(
@@ -50,10 +52,16 @@ class Element extends DataObject {
 	
 	public function getExtraCMSFields() {
 		
+		
 		$fg = new FieldGroup(
 			new FieldSet(
 				new TextField("ExtraClass"),
-				new TextareaField("ExtraStyles")
+				new TextareaField("ExtraStyles"),
+				new TextareaField("Prefix"),
+				new TextareaField("Suffix")
+			),
+			new FieldSet(
+				
 			)
 		);
 		

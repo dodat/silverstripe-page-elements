@@ -41,7 +41,9 @@ class Slot extends DataObject {
 				$Content .=<<<HTML
 				
 <div class="{$ClassStr}" {$ExtraStr} id="{$ID}">
+	{$Element->Prefix}
 	{$Element->forTemplate()}
+	{$Element->Suffix}
 </div>
 		
 HTML;
@@ -58,7 +60,9 @@ HTML;
 			foreach($this->Elements() as $Element) {
 $Content .=<<<HTML
 <div class="{$Element->parentClass()} {$Element->ClassName} {$Element->HTMLID()}" id="{$Element->parentClass()}-{$Element->ID}">
+	{$Element->Prefix}
 	{$Element->forCMSTemplate()}
+	{$Element->Suffix}
 </div>
 HTML;
 			}
