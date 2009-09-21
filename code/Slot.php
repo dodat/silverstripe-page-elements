@@ -55,14 +55,43 @@ HTML;
 	
 	function forCMSTemplate() {
 		
+		$EditIcon = SSPE_DIR . "/images/Element_edit.png";
+		$DeleteIcon = SSPE_DIR . "/images/Element_delete.png";
+		$DragIcon = SSPE_DIR . "/images/Element_drag.png";
+		
 		$Content = "";
 		if($this->Elements()){
 			foreach($this->Elements() as $Element) {
 $Content .=<<<HTML
 <div class="{$Element->parentClass()} {$Element->ClassName} {$Element->HTMLID()}" id="{$Element->parentClass()}-{$Element->ID}">
-	{$Element->Prefix}
-	{$Element->forCMSTemplate()}
-	{$Element->Suffix}
+	<table class="data">
+		<tr>
+			<td class="handle">
+				<img src="{$DragIcon}" alt="Drag this Element" title="Drag this Element"/>
+			</td>
+			<td>{$this->Name}</td>
+			<td><small>{$Element->getClassNiceName()}</small></td>
+			<td class="actions">
+				<a href="{$Element->EditLink()}" class="popuplink editlink" title="Edit this Element">
+					<img src="{$EditIcon}" alt="Edit this Element" title="Edit this Element"/>
+				</a>
+			</td>
+			<td class="actions">
+				<a href="{$Element->DeleteLink()}" class="popuplink deletelink">
+					<img src="{$DeleteIcon}" alt="Delete this Element" title="Delete this Element"/>
+				</a>
+			</td>
+		</tr>
+	</table>
+	<table class="SlotContent">
+		<tr>
+			<td>
+			{$Element->Prefix}
+			{$Element->forCMSTemplate()}
+			{$Element->Suffix}		
+				</td>
+		</tr>
+	</table>	
 </div>
 HTML;
 			}

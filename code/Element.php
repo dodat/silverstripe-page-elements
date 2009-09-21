@@ -108,41 +108,7 @@ class Element extends DataObject {
 	
 	
 	public function forCMSTemplate() {
-		$EditIcon = SSPE_DIR . "/images/Element_edit.png";
-		$DeleteIcon = SSPE_DIR . "/images/Element_delete.png";
-		$DragIcon = SSPE_DIR . "/images/Element_drag.png";
-		$Content =<<<HTML
-
-<table class="data">
-	<tr>
-		<td class="handle">
-			<img src="{$DragIcon}" alt="Drag this Element" title="Drag this Element"/>
-		</td>
-		<td>{$this->Name}</td>
-		<td><small>{$this->getClassNiceName()}</small></td>
-		<td class="actions">
-			<a href="{$this->EditLink()}" class="popuplink editlink" title="Edit this Element">
-				<img src="{$EditIcon}" alt="Edit this Element" title="Edit this Element"/>
-			</a>
-		</td>
-		<td class="actions">
-			<a href="{$this->DeleteLink()}" class="popuplink deletelink">
-				<img src="{$DeleteIcon}" alt="Delete this Element" title="Delete this Element"/>
-			</a>
-		</td>
-	</tr>
-</table>
-<table class="SlotContent">
-	<tr>
-		<td>
-			{$this->forTemplate()}
-		</td>
-	</tr>
-</table>		
-HTML;
-		
-		
-		return $Content;
+		return $this->forTemplate();
 	}
 	
 	public function getClassDropdown() {
