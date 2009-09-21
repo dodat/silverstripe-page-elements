@@ -69,7 +69,7 @@ $Content .=<<<HTML
 			<td class="handle">
 				<img src="{$DragIcon}" alt="Drag this Element" title="Drag this Element"/>
 			</td>
-			<td>{$this->Name}</td>
+			<td>{$Element->Name}</td>
 			<td><small>{$Element->getClassNiceName()}</small></td>
 			<td class="actions">
 				<a href="{$Element->EditLink()}" class="popuplink editlink" title="Edit this Element">
