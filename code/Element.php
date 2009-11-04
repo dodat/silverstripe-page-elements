@@ -21,6 +21,15 @@ class Element extends DataObject {
 	
 	static $default_sort = "SortOrder";
 	
+	
+	static $extensions = array(
+		"Versioned('Stage', 'Live')"
+	);
+	
+	static $versioning = array(
+		"Stage",  "Live"
+	);	
+	
 	/**
 	 * needs param $SlotID to set the parent manually caused by weird things on ComplextTableField @ l550
 	 * and Element in order to get the custom fields
@@ -93,6 +102,10 @@ class Element extends DataObject {
 		return $this->renderWith($this->RecordClassName);
 	}
 	
+	public function onAfterWrite() {
+		//$this->publish("Stage", "Live");
+		return parent::onAfterWrite(); 
+	}
 	
 	public function getCMSFields_forPopup() {
 		return $this->CMSFields();
