@@ -22,7 +22,7 @@ class ElementManager extends ComplexTableField {
 	
 	
 	function saveComplexTableField($data, $form, $params) {
-		die("save");
+		
 		$className = $this->sourceClass();
 		$childData = new $className();
 		$form->saveInto($childData);
