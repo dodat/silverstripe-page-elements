@@ -58,8 +58,8 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 		);
 		$message = sprintf(
 			_t('ComplexTableField.SUCCESSEDIT', 'Saved %s %s %s'),
-			$dataObject->singular_name(),
-			'<a href="' . $this->Link() . '">"' . $dataObject->Title . '"</a>',
+			Element::getClassNiceName($dataObject->ClassName),
+			"<em>`".$dataObject->Title."`</em>",
 			$closeLink
 		);
 		
