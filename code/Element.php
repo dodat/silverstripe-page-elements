@@ -21,7 +21,7 @@ class Element extends DataObject {
 	
 	static $default_sort = "SortOrder";
 	
-	
+	/*
 	static $extensions = array(
 		"Versioned('Stage', 'Live')"
 	);
@@ -29,14 +29,43 @@ class Element extends DataObject {
 	static $versioning = array(
 		"Stage",  "Live"
 	);	
+	*/
+	
+	function __construct() {
+		
+		if($this->stat("is_versioned", true)) {
+			self::addStaticVars(get_class($this), array(
+				"extensions" => array(
+					"Versioned('Stage', 'Live')"
+				),
+				"versioning" => array(
+					"Stage",  "Live"
+				)
+			));
+			echo get_class($this)." is versioned\n\n";
+		} else {
+			echo get_class($this)." is __not__ versioned";
+		}
+		
+		
+		$args = func_get_args();
+		call_user_func_array(array($this, 'parent::__construct'), $args);
+	}
+	
+	static $is_versioned = false;
+
+	static function setVersioning($bool = false) {
+		self::$is_versioned = $bool;
+	}
+	
 	
 	/**
-	 * needs param $SlotID to set the parent manually caused by weird things on ComplextTableField @ l550
+	 * needs param $SlotID to set the parent manually caused by weird things on ComplexTableField @ l550
 	 * and Element in order to get the custom fields
 	 */
-	function CMSFields(Element $Item, $SlotID) {
+	function CMSFields($SlotID) {
 		
-		if($Item->ID==0) {
+		if($this->ID==0) {
 			$ClassField = new DropdownField("ClassName", "Type", $this->getClassDropdown(), $this->ClassName);
 		} else {
 			$ClassField = new ReadonlyField("Type", "Type", $this->getClassNiceName($this->ClassName));
@@ -59,20 +88,34 @@ class Element extends DataObject {
 		return $fs;
 	}
 	
+	function VersionsMap() {
+		$arr = array();
+		foreach($this->allVersions() as $Version) {
+			$arr[$Version->Version] = "Version #{$Version->Version} - ".$Version->obj("LastEdited")->ago();
+		}
+		return $arr;
+	}
+	
+	
 	public function getExtraCMSFields() {
 		
+		$fs = new FieldSet(
+			new TextField("ExtraClass"),
+			new TextareaField("ExtraStyles"),
+			new TextareaField("Prefix"),
+			new TextareaField("Suffix")
+		);
+		
+		if($this->hasExtension("Versioned")) {
+			$fs->push(new DropdownField("Versions", "Versions", $this->VersionsMap()));
+		}
 		
 		$fg = new FieldGroup(
+			$fs,
 			new FieldSet(
-				new TextField("ExtraClass"),
-				new TextareaField("ExtraStyles"),
-				new TextareaField("Prefix"),
-				new TextareaField("Suffix")
-			),
-			new FieldSet(
-				
 			)
 		);
+		
 		
 		$fg->setID("ExtraFields");
 		$fg->addExtraClass("ExtraFields");
@@ -102,10 +145,6 @@ class Element extends DataObject {
 		return $this->renderWith($this->RecordClassName);
 	}
 	
-	public function onAfterWrite() {
-		//$this->publish("Stage", "Live");
-		return parent::onAfterWrite(); 
-	}
 	
 	public function getCMSFields_forPopup() {
 		return $this->CMSFields();
@@ -173,5 +212,7 @@ class Element extends DataObject {
 	}
 	
 }
+
+
 
 
