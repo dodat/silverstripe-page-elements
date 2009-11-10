@@ -56,10 +56,11 @@ class SlotManager extends ComplexTableField {
 			</td>
 		</tr>
 	</table>
+	<div class="Slot {$Name}" id="Slot-{$Slot->ID}">
+		{$Slot->forCMSTemplate()}
+	</div>
 HTML;
-					$ret .= "<div class=\"Slot {$Name}\" id=\"Slot-{$Slot->ID}\">";
-					$ret .= $Slot->forCMSTemplate();
-					$ret .= "</div>";
+					
 					
 				}
 			}
@@ -81,7 +82,7 @@ class SlotManager_Controller extends Controller {
 	function sort() {
 		if(Permission::check("CMS_ACCESS_CMSMain")) {
 			if(!empty($_POST) && is_array($_POST)) {
-				foreach($_POST as $group => $map) {
+				foreach($_POST as $group => $map) { 
 					foreach($map as $sort => $ID) {
 						$Element = DataObject::get_by_id("Element", $ID);
 						$Element->SortOrder = $sort;
