@@ -14,7 +14,7 @@ class ElementManager extends ComplexTableField {
 			$functioncall = $this->detailFormFields;
 			if(!$childData->hasMethod($functioncall)) $functioncall = "getCMSFields";
 			//pass the childdata on
-			$fields = $childData->$functioncall($childData, $this->controller->ID);
+			$fields = $childData->$functioncall($this->controller->ID);
 		}
 		
 		return $fields;
@@ -28,9 +28,10 @@ class ElementManager extends ComplexTableField {
 		$form->saveInto($childData);
 		$childData->SlotID = $this->controller->ID;
 		$childData->write();
-		// publishing versioned
-		$childData->publish("Stage", "Live");
-		
+		if($childData->hasExtension("Versioned")) {
+			// publishing versioned
+			$childData->publish("Stage", "Live");
+		}
 		$form->sessionMessage('Added successfully', 'good');
 		
 		Director::redirect($this->Link().'/item/'.$childData->ID.'/edit');
@@ -48,8 +49,10 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 		$form->saveInto($dataObject);
 		$dataObject->write();
 		
-		//versioning 
-		$dataObject->publish("Stage", "Live");
+		if($dataObject->hasExtension("Versioned")) {
+			// publishing versioned
+			$dataObject->publish("Stage", "Live");
+		}
 		
 		$referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
 		$closeLink = sprintf(
