@@ -42,11 +42,7 @@ class Element extends DataObject {
 					"Stage",  "Live"
 				)
 			));
-			echo get_class($this)." is versioned\n\n";
-		} else {
-			echo get_class($this)." is __not__ versioned";
-		}
-		
+		} 
 		
 		$args = func_get_args();
 		call_user_func_array(array($this, 'parent::__construct'), $args);
