@@ -24,7 +24,6 @@ class SlotManager extends ComplexTableField {
 		$ret = parent::FieldHolder();
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.core.js");
-		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.core.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.draggable.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.sortable.js");
 		Requirements::javascript(SSPE_DIR."/javascript/SlotManager.js");
@@ -35,11 +34,9 @@ class SlotManager extends ComplexTableField {
 	
 	
 	public function Slot($Name) {
-		
 		$ret = "";
 		if($this->Items()) {
 			foreach($this->Items() as $Item) {
-				
 				if($Item->Name == $Name) {
 					$AddIcon = SSPE_DIR . "/images/Element_add.png";
 					$Slot = $this->controller->Slot($Name);
@@ -50,8 +47,8 @@ class SlotManager extends ComplexTableField {
 				<h4>{$Name}</h4>
 			</td>
 			<td class="actions">
-				<a href="{$Item->AddLink()}" title="Add a Slotitem">
-					<img src="/{$AddIcon}" alt="Add a Slotitem" title="Add a Slotitem"/>
+				<a href="{$Item->AddLink()}" title="Add an Element">
+					<img src="/{$AddIcon}" alt="Add an Element" title="Add an Element"/>
 				</a>
 			</td>
 		</tr>
@@ -60,8 +57,6 @@ class SlotManager extends ComplexTableField {
 		{$Slot->forCMSTemplate()}
 	</div>
 HTML;
-					
-					
 				}
 			}
 		}
