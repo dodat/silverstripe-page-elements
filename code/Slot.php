@@ -19,6 +19,10 @@ class Slot extends DataObject {
 		$Content = "";
 		if($this->Elements() && $Elements = $this->Elements()){
 			foreach($Elements as $Element) {
+				if($Element instanceof HiddenElement) {
+					$Element->forTemplate();
+					continue;
+				}
 				
 				$ExtraAttrs = array();
 				

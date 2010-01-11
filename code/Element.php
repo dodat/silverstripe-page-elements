@@ -70,9 +70,12 @@ class Element extends DataObject {
 		$fs = new FieldSet(
 			new TextField('Name', "Name", $this->Name),
 			$ClassField,
-			new HiddenField("SlotID", "", $SlotID),
-			$this->getExtraCMSFields()
+			new HiddenField("SlotID", "", $SlotID)
 		);
+		
+		if(!$this instanceof HiddenElement) {
+			$fs->push($this->getExtraCMSFields());
+		}
 		
 		$fs->merge($this->getCMSFields());
 		return $fs;
@@ -111,7 +114,6 @@ class Element extends DataObject {
 			new FieldSet(
 			)
 		);
-		
 		
 		$fg->setID("ExtraFields");
 		$fg->addExtraClass("ExtraFields");
