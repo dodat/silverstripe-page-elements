@@ -1,9 +1,7 @@
-var j = jQuery.noConflict();
+jQuery.noConflict();
 
-(function() {
-	j(document).ready(function() {
-		j("div.ExtraFields label.left").click(function() {
-			j(this).parent().find(".middleColumn").toggle("slow");
+jQuery(function($) {
+		$("div.ExtraFields label.left").click(function() {
+			$(this).parent().find(".middleColumn").toggle("slow");
 		});
-	});
-})(jQuery);
+});
