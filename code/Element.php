@@ -130,6 +130,11 @@ class Element extends DataObject {
 		
 	}
 	
+	/** Overwrite with custom permission check **/
+	function canCreate() {
+		return Permission::check("CMS_ACCESS_CMSMain");
+	}
+	
 	/** to avoid confusion in TableListField **/
 	function getContent() {
 		return $this->getField('Content');
@@ -169,13 +174,11 @@ class Element extends DataObject {
 		foreach($classes as $class) {
 			if($class == $parent) continue;
 			$instance = singleton($class);
-			if((($instance instanceof HiddenClass) ||
-				!$instance->canCreate())){ continue; }
+			if((($instance instanceof HiddenClass) || !$instance->canCreate())){ continue; }
 			$result[$class] = self::getClassNiceName($class);
 		}
 		
 		asort($result);
-		
 		return $result;
 		
 	}
