@@ -294,7 +294,8 @@
                     var orig = this.original;
                     var edit = this.editor;
                     if ( this.viewHTML )
-                    {   
+                    {
+                        console.log("exec");
                         this.setContent( $(this.original).val() );
                         $(orig).fadeOut("slow",function() {
                             $(edit).fadeIn("slow");
@@ -489,6 +490,10 @@
                 $(this.editorDoc).keydown(function() { self.saveContent(); })
                                  .keyup(function() { self.saveContent(); })
                                  .mousedown(function() { self.saveContent(); });
+                                 
+                $(this.original).keydown(function() { self.setContent( $(this).val()); })
+                                 .keyup(function() {  self.setContent( $(this).val());})
+                                 .mousedown(function() {  self.setContent( $(this).val()); });
             }
 
             if ( this.options.css )
@@ -511,6 +516,7 @@
 
             $(this.editorDoc).keydown(function( event )
             {
+                
                 if ( $.browser.msie && self.options.brIE && event.keyCode == 13 )
                 {
                     var rng = self.getRange();
