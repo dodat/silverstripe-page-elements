@@ -295,7 +295,6 @@
                     var edit = this.editor;
                     if ( this.viewHTML )
                     {
-                        console.log("exec");
                         this.setContent( $(this.original).val() );
                         $(orig).fadeOut("slow",function() {
                             $(edit).fadeIn("slow");
