@@ -17,8 +17,8 @@ class HTMLElement extends Element {
 				array(
 					"css" => "/themes/".SSViewer::current_theme()."/css/typography.css"
 				),
-				10,
-				70
+				15,
+				90
 			)
 		);
 	}
