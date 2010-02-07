@@ -10,7 +10,7 @@ class RawTextElement extends Element {
 	
 	
 	function getCMSFields() {
-		return new FieldSet(new TextareaField("Content"));
+		return new FieldSet(new TextareaField("Content", "Content", 15, 30));
 	}
 	
 	
