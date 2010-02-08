@@ -159,8 +159,8 @@ class GridPage_Controller extends Page_Controller  {
 		return $this->renderWith(
 			array(
 				$this->data()->Template,
-				$this->data()->class,
-				parent::data()->class
+				$this->data()->ClassName,
+				"Page"
 			),
 		"Layout");
 	}
