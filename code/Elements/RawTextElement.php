@@ -19,12 +19,5 @@ class RawTextElement extends Element {
 	function forTemplate() {
 		return $this->Content;
 	}
-	
-	function getRequirementsForPopup() {
-		parent::getRequirementsForPopup();
-		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
-		Requirements::javascript(SSPE_DIR.'/javascript/jquery.elastic.js');
 		
-	}
-	
 }
