@@ -97,12 +97,20 @@ class Element extends DataObject {
 	
 	
 	public function getExtraCMSFields() {
+		$ExtraStyles = new TextareaField("ExtraStyles");
+		$ExtraStyles->addExtraClass("elastic");
+		
+		$Prefix = new TextareaField("Prefix");
+		$Prefix->addExtraClass("elastic");
+		
+		$Suffix = new TextareaField("Suffix");
+		$Suffix->addExtraClass("elastic");
 		
 		$fs = new FieldSet(
 			new TextField("ExtraClass"),
-			new TextareaField("ExtraStyles"),
-			new TextareaField("Prefix"),
-			new TextareaField("Suffix")
+			$ExtraStyles,
+			$Prefix,
+			$Suffix
 		);
 		
 		if($this->hasExtension("Versioned")) {
@@ -155,9 +163,12 @@ class Element extends DataObject {
 	
 	public function getRequirementsForPopup() {
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
-		//Requirements::javascript(SSPE_DIR."/javascript/jquery/jquery-1.3.2.min.js");
-		//Requirements::javascript(SSPE_DIR."/javascript/jquery/jquery-ui-1.7.2.custom.min.js");
 		Requirements::javascript(SSPE_DIR."/javascript/ElementManager.js");
+		Requirements::javascript(SSPE_DIR.'/javascript/jquery.elastic.js');
+		Requirements::customScript(<<<JS
+jQuery("textarea.elastic").elastic();
+JS
+);
 		Requirements::css(SSPE_DIR."/css/ElementManager.css");
 	}
 	
