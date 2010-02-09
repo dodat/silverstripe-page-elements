@@ -72,7 +72,6 @@ class HTMLElementEditorField extends TextareaField
 		
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.wysiwyg.js');
-		Requirements::javascript(SSPE_DIR.'/javascript/jquery.elastic.js');
 		Requirements::css(SSPE_DIR.'/css/jquery.wysiwyg.css');
 		Requirements::customScript("
 			jQuery(function() {
