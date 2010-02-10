@@ -48,7 +48,7 @@ class SlotManager extends ComplexTableField {
 				<h4>{$Name}</h4>
 			</td>
 			<td class="actions">
-				<a href="{$Item->AddLink()}" title="Add an Element">
+				<a class="popuplink" href="{$Item->AddLink()}" title="Add an Element">
 					<img src="/{$AddIcon}" alt="Add an Element" title="Add an Element"/>
 				</a>
 			</td>
