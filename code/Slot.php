@@ -68,12 +68,12 @@ HTML;
 			foreach($this->Elements() as $Element) {
 $Content .=<<<HTML
 <div class="{$Element->parentClass()} {$Element->ClassName} {$Element->HTMLID()}" id="{$Element->parentClass()}-{$Element->ID}">
-	<table class="data">
+	<table class="ElementHeader">
 		<tr>
 			<td class="handle">
 				<img src="{$DragIcon}" alt="Drag this Element" title="Drag this Element"/>
 			</td>
-			<td>{$Element->Name}</td>
+			<td class="editable">{$Element->Name}</td>
 			<td><small>{$Element->getClassNiceName()}</small></td>
 			<td class="actions">
 				<a href="{$Element->EditLink()}" class="popuplink editlink" title="Edit this Element">

@@ -27,6 +27,7 @@ class SlotManager extends ComplexTableField {
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.draggable.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.sortable.js");
 		Requirements::javascript(SSPE_DIR."/javascript/SlotManager.js");
+		Requirements::javascript(SSPE_DIR."/javascript/jquery.editable-1.3.3.js");
 		Requirements::css(SSPE_DIR."/css/SlotManager.css");
 		return $ret;
 	}
@@ -41,7 +42,7 @@ class SlotManager extends ComplexTableField {
 					$AddIcon = SSPE_DIR . "/images/Element_add.png";
 					$Slot = $this->controller->Slot($Name);
 					$ret .=<<<HTML
-	<table class="data">
+	<table class="SlotHeader">
 		<tr>
 			<td>
 				<h4>{$Name}</h4>
@@ -86,6 +87,15 @@ class SlotManager_Controller extends Controller {
 					}
 				}
 			}
+		}
+	}
+	
+	function editTitle() {
+		if(Permission::check("CMS_ACCESS_CMSMain")) {
+			$Element = DataObject::get_by_id("Element", (int)$_POST['ID']);
+			$Element->Name = Convert::Raw2SQL($_POST['Name']);
+			$Element->write();
+			
 		}
 	}
 	

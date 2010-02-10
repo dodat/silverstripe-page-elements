@@ -16,12 +16,15 @@
 	float: none;
 }
 
-.SlotManager .Slot table.data
+.SlotManager table.SlotHeader,
+.SlotManager table.ElementHeader
 {
 	border-color: #666;
+	border-spacing:0;
 }
 
-.SlotManager table.data tbody tr td
+.SlotManager table.ElementHeader tbody tr td,
+.SlotManager table.SlotHeader tbody tr td
 {
 	background-color: #ddd;
 	background-image: url('../images/SlotDataTable_bg.png');
@@ -29,8 +32,10 @@
 	padding: 4px 4px 0;
 }
 
-.SlotManager table.data td,
-.SlotManager table.data td h4
+.SlotManager table.ElementHeader td,
+.SlotManager table.ElementHeader td h4,
+.SlotManager table.SlotHeader td,
+.SlotManager table.SlotHeader td h4
 {
 	color: #fff;
 }
@@ -58,7 +63,8 @@
 	min-height: 80px;
 }
 
-.SlotManager .Element table
+.SlotManager .Element table,
+.SlotManager table.SlotHeader
 {
 	width: 100%;
 }
