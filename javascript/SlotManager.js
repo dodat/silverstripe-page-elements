@@ -39,6 +39,14 @@
 			$("table.SlotContent a").click(function(){
 				return false;
 			});
+			
+			$("td.editable").editable({
+				onSubmit:function(content){
+					var Element = $(this).parents("div").attr("id").match(/(.+)[-=_](.+)/);
+					$.post('SlotManager/editTitle/',{"ID": Element[2], "Name":content.current});
+				}
+			});
+			
 		}
 		
 		$.fn.SlotManager.setPopupSize = function(container) {
@@ -47,12 +55,7 @@
 			$(container_id+"_PopupWidth").attr("value", $(window).width()-150);
 		}
 		
-		$("td.editable").editable({
-			onSubmit:function(content){
-				var Element = $(this).parents("div").attr("id").match(/(.+)[-=_](.+)/);
-				$.post('SlotManager/editTitle/',{"ID": Element[2], "Name":content.current});
-			}
-		});
+		
 		
 		$("div.SlotManager").livequery(function() {
 			$(this).SlotManager();
