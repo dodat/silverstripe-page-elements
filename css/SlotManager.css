@@ -1,19 +1,15 @@
-.SlotManager a:link.editlink,
-.SlotManager a:visited.editlink,
-.SlotManager a:hover.editlink,
-.SlotManager a:active.editlink
-{
-	text-decoration: none;
-	font-size: 16px;
-	font-weight: bold;
-	text-align: right;
-}
-
-
 .SlotManager td.actions
 {
 	text-align: right;
 	float: none;
+}
+
+.SlotManager .actions a:link,
+.SlotManager .actions a:visited,
+.SlotManager .actions a:hover,
+.SlotManager .actions a:active
+{
+	background-color: transparent;
 }
 
 .SlotManager table.SlotHeader,
