@@ -55,7 +55,7 @@ class SlotManager_Controller extends Controller {
 					foreach($map as $sort => $ID) {
 						$Element = DataObject::get_by_id("Element", $ID);
 						$Element->SortOrder = $sort;
-						if($SlotID = $this->urlParams['ID']) $Element->SlotID = $SlotID;
+						if($SlotID = (int)$this->urlParams['ID']) $Element->SlotID = $SlotID;
 						$Element->write();
 					}
 				}
