@@ -14,8 +14,11 @@ class Slot extends DataObject {
 		"GridPage" => "GridPage"
 	);
 	
-	
 	function forTemplate() {
+		if(Director::get_site_mode() == "cms") {
+			return $this->renderWith("Slot_cms");
+		}
+		
 		$Content = "";
 		if($this->Elements() && $Elements = $this->Elements()){
 			foreach($Elements as $Element) {
@@ -57,53 +60,6 @@ HTML;
 	}
 	
 	
-	function forCMSTemplate() {
-		
-		$EditIcon = SSPE_DIR . "/images/Element_edit.png";
-		$DeleteIcon = SSPE_DIR . "/images/Element_delete.png";
-		$DragIcon = SSPE_DIR . "/images/Element_drag.png";
-		
-		$Content = "";
-		if($this->Elements()){
-			foreach($this->Elements() as $Element) {
-$Content .=<<<HTML
-<div class="{$Element->parentClass()} {$Element->ClassName} {$Element->HTMLID()}" id="{$Element->parentClass()}-{$Element->ID}">
-	<table class="ElementHeader">
-		<tr>
-			<td class="handle">
-				<img src="{$DragIcon}" alt="Drag this Element" title="Drag this Element"/>
-			</td>
-			<td class="editable">{$Element->Name}</td>
-			<td><small>{$Element->getClassNiceName()}</small></td>
-			<td class="actions">
-				<a href="{$Element->EditLink()}" class="popuplink editlink" title="Edit this Element">
-					<img src="{$EditIcon}" alt="Edit this Element" title="Edit this Element"/>
-				</a>
-			</td>
-			<td class="actions">
-				<a href="{$Element->DeleteLink()}" class="popuplink deletelink">
-					<img src="{$DeleteIcon}" alt="Delete this Element" title="Delete this Element"/>
-				</a>
-			</td>
-		</tr>
-	</table>
-	<table class="SlotContent">
-		<tr>
-			<td>
-			{$Element->Prefix}
-			{$Element->forCMSTemplate()}
-			{$Element->Suffix}		
-				</td>
-		</tr>
-	</table>	
-</div>
-HTML;
-			}
-		}
-		return $Content;
-	}
-	
-	
 	function getCMSFields_forPopup() {
 		$fs = new FieldSet(
 			new ElementManager(
@@ -130,6 +86,11 @@ HTML;
 			}
 		}
 		parent::onBeforeDelete();
+	}
+	
+	
+	function AddIcon() {
+		return SSPE_DIR . "/images/Element_add.png";
 	}
 	
 	
