@@ -207,6 +207,19 @@ JS
 		return $NiceName;
 	}
 	
+	
+	function EditIcon() {
+		return SSPE_DIR . "/images/Element_edit.png";
+	}
+	
+	function DeleteIcon() {
+		return SSPE_DIR . "/images/Element_delete.png";
+	}
+	
+	function DragIcon() {
+		return SSPE_DIR . "/images/Element_drag.png";
+	}
+	
 	/**
 	 * This could be nicer!
 	*/
