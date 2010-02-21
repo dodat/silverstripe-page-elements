@@ -37,8 +37,35 @@
 .SlotManager table.SlotHeader td,
 .SlotManager table.SlotHeader td h4
 {
+	cursor: default;
 	color: #fff;
 }
+
+.SlotManager table.ElementHeader td.handle
+{
+	cursor:move;
+}
+
+.SlotManager table.ElementHeader td.name
+{
+	padding: 3px 20px 0;
+	width: 50%;
+	cursor: text;
+	font-size:16px;
+}
+
+.SlotManager table.ElementHeader td.icon {
+	width: 16px;
+}
+
+.SlotManager table.ElementHeader td input {
+	width: auto;
+	background: transparent;
+	border: 0 none;
+	font-size:16px;
+	color: #ddd;
+}
+
 
 .SlotManager div.Slot
 {
@@ -86,15 +113,11 @@
 	clear: both;
 }
 
-div.Columns
+div.SlotManager .middleColumn
 {
-	clear: both;
-	width: 99%;
+	width: 960px !important;
 	background-color: #999;
-	padding: 0.33%;
-	overflow: hidden;
-	outline: 1px solid #666;
-	margin: 1px;
+	outline: 1px solid #666;	
 }
 
 
