@@ -15,7 +15,6 @@ class SlotManager extends ComplexTableField {
 			'getCMSFields_forPopup',
 			"`GridPageID`='{$GridPage->ID}'"
 		);
-		$this->setPopupSize(900, 500);
 		
 	}
 	
@@ -35,33 +34,7 @@ class SlotManager extends ComplexTableField {
 	
 	
 	public function Slot($Name) {
-		$ret = "";
-		if($this->Items()) {
-			foreach($this->Items() as $Item) {
-				if($Item->Name == $Name) {
-					$AddIcon = SSPE_DIR . "/images/Element_add.png";
-					$Slot = $this->controller->Slot($Name);
-					$ret .=<<<HTML
-	<table class="SlotHeader">
-		<tr>
-			<td>
-				<h4>{$Name}</h4>
-			</td>
-			<td class="actions">
-				<a class="popuplink" href="{$Item->AddLink()}" title="Add an Element">
-					<img src="/{$AddIcon}" alt="Add an Element" title="Add an Element"/>
-				</a>
-			</td>
-		</tr>
-	</table>
-	<div class="Slot {$Name}" id="Slot-{$Slot->ID}">
-		{$Slot->forCMSTemplate()}
-	</div>
-HTML;
-				}
-			}
-		}
-		return $ret;
+		return $this->Items()->find("Name",$Name);
 	}
 	
 	function Template() {
@@ -95,7 +68,6 @@ class SlotManager_Controller extends Controller {
 			$Element = DataObject::get_by_id("Element", (int)$_POST['ID']);
 			$Element->Name = Convert::Raw2SQL($_POST['Name']);
 			$Element->write();
-			
 		}
 	}
 	
