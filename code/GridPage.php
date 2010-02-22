@@ -46,7 +46,6 @@ class GridPage extends Page {
 			$this->Template
 		);
 		
-		
 		$fs->insertAfter($TemplateField, "ClassName");
 		
 		
@@ -57,7 +56,6 @@ class GridPage extends Page {
 		}
 		
 		$fs->removeFieldFromTab("Root.Content.Main", "Content");
-		
 		
 		$fs->addFieldToTab("Root.Content.Main", $field);
 		
@@ -70,7 +68,6 @@ Behaviour.register({
 		}
 	}
 });
-	
 
 JS
 );
@@ -80,9 +77,7 @@ JS
 	
 	public function Slot($Name = null) {
 		if($this->Slots()->Count() > 0) {
-			if($Slot = $this->Slots()->find("Name", $Name)) {
-				return $Slot;
-			} 
+			return $this->Slots()->find("Name", $Name); 
 		}
 	}
 	
@@ -173,4 +168,3 @@ class GridPage_Controller extends Page_Controller  {
 	}
 }
 
-?>
