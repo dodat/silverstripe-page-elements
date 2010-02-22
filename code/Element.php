@@ -11,15 +11,19 @@ class Element extends DataObject {
 		"Suffix" => "Text"
 	);
 	
+	
 	static $has_one = array(
 		"Slot" => "Slot"
 	);
+	
 	
 	static $defaults = array(
 		"Name" => "New Element"
 	);
 	
+	
 	static $default_sort = "SortOrder";
+	
 	
 	/*
 	static $extensions = array(
@@ -30,6 +34,7 @@ class Element extends DataObject {
 		"Stage",  "Live"
 	);	
 	*/
+	
 	
 	function __construct() {
 		
@@ -48,7 +53,9 @@ class Element extends DataObject {
 		call_user_func_array(array($this, 'parent::__construct'), $args);
 	}
 	
+	//not working properly at this stage
 	static $is_versioned = false;
+
 
 	static function setVersioning($bool = false) {
 		self::$is_versioned = $bool;
@@ -86,6 +93,7 @@ class Element extends DataObject {
 		$fs = new FieldSet();
 		return $fs;
 	}
+	
 	
 	function VersionsMap() {
 		$arr = array();
@@ -130,6 +138,7 @@ class Element extends DataObject {
 		return $fg;
 	}
 	
+	
 	public function ExtraCMSFields() {
 		return new FieldSet(
 			new TextField("ExtraClass"),
@@ -138,19 +147,23 @@ class Element extends DataObject {
 		
 	}
 	
+	
 	/** Overwrite with custom permission check **/
 	function canCreate() {
 		return Permission::check("CMS_ACCESS_CMSMain");
 	}
+	
 	
 	/** to avoid confusion in TableListField **/
 	function getContent() {
 		return $this->getField('Content');
 	}
 	
+	
 	function HTMLID() {
 		return "{$this->ClassName}-{$this->ID}";
 	}
+	
 	
 	public function forTemplate() {
 		return $this->renderWith($this->RecordClassName);
@@ -161,14 +174,12 @@ class Element extends DataObject {
 		return $this->CMSFields();
 	}
 	
+	
 	public function getRequirementsForPopup() {
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
 		Requirements::javascript(SSPE_DIR."/javascript/ElementManager.js");
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.elastic.js');
-		Requirements::customScript(<<<JS
-jQuery("textarea.elastic").elastic();
-JS
-);
+		Requirements::customScript("jQuery(\"textarea.elastic\").elastic();");
 		Requirements::css(SSPE_DIR."/css/ElementManager.css");
 	}
 	
@@ -176,6 +187,7 @@ JS
 	public function forCMSTemplate() {
 		return $this->forTemplate();
 	}
+	
 	
 	public function getClassDropdown() {
 		$parent = __CLASS__;
@@ -191,8 +203,8 @@ JS
 		
 		asort($result);
 		return $result;
-		
 	}
+	
 	
 	public function getClassNiceName($class = null) {
 		if(!$class) {
@@ -212,32 +224,31 @@ JS
 		return SSPE_DIR . "/images/Element_edit.png";
 	}
 	
+	
 	function DeleteIcon() {
 		return SSPE_DIR . "/images/Element_delete.png";
 	}
+	
 	
 	function DragIcon() {
 		return SSPE_DIR . "/images/Element_drag.png";
 	}
 	
-	/**
-	 * This could be nicer!
-	*/
 	
+	//TODO: This could be nicer!
 	function Link() {
 		return Director::absoluteBaseURL()."admin/EditForm/field/Slots/item/".$this->SlotID."/DetailForm/field/Elements/";
 	}
+	
 	
 	function EditLink() {
 		return $this->Link()."item/".$this->ID."/edit/";
 	}
 	
+	
 	function DeleteLink() {
 		return $this->Link()."item/".$this->ID."/delete/";
 	}
 	
+	
 }
-
-
-
-
