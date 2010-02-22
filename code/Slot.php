@@ -94,6 +94,7 @@ HTML;
 	}
 	
 	
+	//TODO: needs review
 	function AddLink() {
 		return "admin/EditForm/field/Slots/item/{$this->ID}/DetailForm/field/Elements/add/";
 	}
