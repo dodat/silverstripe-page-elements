@@ -1,0 +1,21 @@
+div.ExtraFields.field label.left {
+	background-color: #999;
+	padding: 5px;
+	color: #fff;
+	font-weight: bold;
+}
+
+
+div.ExtraFields.field div.middleColumn
+{
+	display: none;
+}
+
+div.ExtraFields.field div.fieldgroupField {
+	clear: both;
+}
+
+div.ExtraFields.field div.middleColumn label {
+	display: block;
+	
+}
