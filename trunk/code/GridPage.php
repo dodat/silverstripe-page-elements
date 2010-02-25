@@ -146,6 +146,19 @@ JS
 		}
 	}
 	
+	
+	function publish($fromStage, $toStage, $createNewVersion = false) {
+		/** this causes weird things in object@l117 when not versioned **/
+		foreach($this->Slots() as $Slot) {
+			foreach($Slot->Elements()  as $Element) {
+				if($Element->hasExtension("Versioned")) {
+					$Element->publish($fromStage, $toStage, $createNewVersion);
+				}
+			}
+		}
+		return parent::publish($fromStage, $toStage, $createNewVersion);
+	}
+	
 }
 
 class GridPage_Controller extends Page_Controller  {
@@ -167,4 +180,3 @@ class GridPage_Controller extends Page_Controller  {
 		}
 	}
 }
-
