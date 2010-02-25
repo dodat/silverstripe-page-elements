@@ -49,11 +49,6 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 		$form->saveInto($dataObject);
 		$dataObject->write();
 		
-		if($dataObject->hasExtension("Versioned")) {
-			// publishing versioned
-			$dataObject->publish("Stage", "Live");
-		}
-		
 		$referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
 		$closeLink = sprintf(
 			'<small><a href="' . $referrer . '" onclick="javascript:window.top.GB_hide(); return false;">(%s)</a></small>',
