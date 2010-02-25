@@ -25,7 +25,7 @@ class Element extends DataObject {
 	static $default_sort = "SortOrder";
 	
 	
-	/*
+	
 	static $extensions = array(
 		"Versioned('Stage', 'Live')"
 	);
@@ -33,7 +33,7 @@ class Element extends DataObject {
 	static $versioning = array(
 		"Stage",  "Live"
 	);	
-	*/
+	
 	
 	
 	function __construct() {
@@ -59,6 +59,15 @@ class Element extends DataObject {
 
 	static function setVersioning($bool = false) {
 		self::$is_versioned = $bool;
+	}
+	
+	function canPublish() {
+		
+		//TODO: implement security check
+		if($this->stagesDiffer('Stage', 'Live')) {
+			return true;
+		}
+		return false;
 	}
 	
 	
@@ -235,6 +244,11 @@ class Element extends DataObject {
 	}
 	
 	
+	function PublishIcon() {
+		return SSPE_DIR . "/images/Element_publish.png";
+	}
+	
+	
 	//TODO: This could be nicer!
 	function Link() {
 		return Director::absoluteBaseURL()."admin/EditForm/field/Slots/item/".$this->SlotID."/DetailForm/field/Elements/";
@@ -250,5 +264,8 @@ class Element extends DataObject {
 		return $this->Link()."item/".$this->ID."/delete/";
 	}
 	
+	function PublishLink() {
+		return $this->Link()."item/".$this->ID."/publish/";
+	}
 	
 }
