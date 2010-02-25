@@ -67,8 +67,13 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 		);
 		
 		$form->sessionMessage($message, 'good');
-
 		Director::redirectBack();
+	}
+	
+	function publish() {
+		//TODO Permission check to come here
+		$this->dataObj()->publish("Stage", "Live");
+	
 	}
 	
 }
