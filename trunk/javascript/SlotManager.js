@@ -78,6 +78,8 @@ SlotManager.prototype = {
 		
 		// Assume that the delete link uses the deleteRecord method
 		rules['#'+this.id+' table a.deletelink'] = {onclick: this.deleteRecord.bind(this)};
+		
+		rules['#'+this.id+' table a.publishlink'] = {onclick: this.publishElement.bind(this)};
 
 		Behaviour.register('SlotManager_'+this.id,rules);
 		
@@ -167,8 +169,9 @@ SlotManager.prototype = {
 	deleteRecord: function(e) {
 		var img = Event.element(e);
 		var link = Event.findElement(e,"a");
-		var row = Event.findElement(e,"tr");
+		var container = Event.findElement(e,"div");
 		
+
 		// TODO ajaxErrorHandler and loading-image are dependent on cms, but formfield is in sapphire
 		var confirmed = confirm("Are you sure you want to "+link.title+"?");
 		if(confirmed)
@@ -181,7 +184,7 @@ SlotManager.prototype = {
 					postBody: 'forceajax=1' + ($('SecurityID') ? '&SecurityID=' + $('SecurityID').value : ''),
 					onComplete: function(){
 						Effect.Fade(
-							row,
+							container,
 							{
 								afterFinish: function(obj) {
 									// remove row from DOM
@@ -196,6 +199,33 @@ SlotManager.prototype = {
 						);
 					}.bind(this),
 					onFailure: this.ajaxErrorHandler
+				}
+			);
+		}
+		Event.stop(e);
+	},
+	
+	publishElement: function(e) {
+		var img = Event.element(e);
+		var link = Event.findElement(e,"a");
+		
+		var confirmed = confirm("Are you sure you want to "+link.title+"?");
+		if(confirmed)
+		{
+			var origsrc = img.getAttribute("src");
+			
+			img.setAttribute("src",'cms/images/network-save.gif');
+			
+			// TODO better interaction / hide button when no newer version is there etc
+			new Ajax.Request(
+				link.getAttribute("href"),
+				{
+					method: 'post', 
+					postBody: 'forceajax=1' + ($('SecurityID') ? '&SecurityID=' + $('SecurityID').value : ''),
+					onComplete: function(){
+						//img.setAttribute("src",origsrc);
+						img.setAttribute("style","display:none;");
+					}.bind(this)
 				}
 			);
 		}
