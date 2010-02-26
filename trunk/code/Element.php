@@ -25,7 +25,6 @@ class Element extends DataObject {
 	static $default_sort = "SortOrder";
 	
 	
-	
 	static $extensions = array(
 		"Versioned('Stage', 'Live')"
 	);
@@ -68,6 +67,10 @@ class Element extends DataObject {
 			return true;
 		}
 		return false;
+	}
+	
+	function hasVersions() {
+		return true;
 	}
 	
 	
@@ -249,6 +252,11 @@ class Element extends DataObject {
 	}
 	
 	
+	function HistoryIcon() {
+		return SSPE_DIR . "/images/Element_undo.png";
+	}
+	
+	
 	//TODO: This could be nicer!
 	function Link() {
 		return Director::absoluteBaseURL()."admin/EditForm/field/Slots/item/".$this->SlotID."/DetailForm/field/Elements/";
@@ -264,8 +272,14 @@ class Element extends DataObject {
 		return $this->Link()."item/".$this->ID."/delete/";
 	}
 	
+	
 	function PublishLink() {
 		return $this->Link()."item/".$this->ID."/publish/";
+	}
+	
+	
+	function HistoryLink() {
+		return $this->Link()."item/".$this->ID."/history/";
 	}
 	
 }

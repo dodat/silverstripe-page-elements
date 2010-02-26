@@ -156,7 +156,8 @@ JS
 				}
 			}
 		}
-		return parent::publish($fromStage, $toStage, $createNewVersion);
+		
+		$this->extension_instances['Versioned']->publish($fromStage, $toStage, $createNewVersion);
 	}
 	
 }

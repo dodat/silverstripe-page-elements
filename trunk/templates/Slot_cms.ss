@@ -18,6 +18,13 @@
 			</td>
 			<td class="name editable">$Name</td>
 			<td class="type"><small>$ClassNiceName</small></td>
+			<% if hasVersions %>
+			<td class="actions icon">
+				<a href="$HistoryLink" class="popuplink historylink" title="View history for Element `$Name`">
+					<img src="$HistoryIcon" alt="View history for Element `$Name`" title="View history for Element `$Name`"/>
+				</a>
+			</td>
+			<% end_if %>
 			<% if canPublish %>
 			<td class="actions icon">
 				<a href="$PublishLink" class="popuplink publishlink" title="Publish Element `$Name`">
