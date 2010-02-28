@@ -148,7 +148,6 @@ JS
 	
 	
 	function publish($fromStage, $toStage, $createNewVersion = false) {
-		/** this causes weird things in object@l117 when not versioned **/
 		foreach($this->Slots() as $Slot) {
 			foreach($Slot->Elements()  as $Element) {
 				if($Element->hasExtension("Versioned")) {
