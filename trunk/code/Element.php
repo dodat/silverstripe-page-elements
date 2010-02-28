@@ -25,52 +25,30 @@ class Element extends DataObject {
 	static $default_sort = "SortOrder";
 	
 	
-	static $extensions = array(
-		"Versioned('Stage', 'Live')"
-	);
-	
 	static $versioning = array(
 		"Stage",  "Live"
 	);	
 	
 	
-	
-	function __construct() {
-		
-		if($this->stat("is_versioned", true)) {
-			self::addStaticVars(get_class($this), array(
-				"extensions" => array(
-					"Versioned('Stage', 'Live')"
-				),
-				"versioning" => array(
-					"Stage",  "Live"
-				)
-			));
-		} 
-		
-		$args = func_get_args();
-		call_user_func_array(array($this, 'parent::__construct'), $args);
+	static function setVersioning($ElementClasses) {
+		foreach((array)$ElementClasses as $ElementClass) {
+			Object::add_extension($ElementClass, "Versioned('Stage', 'Live')");
+		}
 	}
 	
-	//not working properly at this stage
-	static $is_versioned = false;
-
-
-	static function setVersioning($bool = false) {
-		self::$is_versioned = $bool;
-	}
 	
 	function canPublish() {
-		
-		//TODO: implement security check
-		if($this->stagesDiffer('Stage', 'Live')) {
-			return true;
+		if($this->hasExtension("Versioned")) {
+			//TODO: implement security check
+			if($this->stagesDiffer('Stage', 'Live')) {
+				return true;
+			}
 		}
 		return false;
 	}
 	
 	function hasVersions() {
-		return true;
+		return $this->hasExtension("Versioned");
 	}
 	
 	
@@ -107,15 +85,6 @@ class Element extends DataObject {
 	}
 	
 	
-	function VersionsMap() {
-		$arr = array();
-		foreach($this->allVersions() as $Version) {
-			$arr[$Version->Version] = "Version #{$Version->Version} - ".$Version->obj("LastEdited")->ago();
-		}
-		return $arr;
-	}
-	
-	
 	public function getExtraCMSFields() {
 		$ExtraStyles = new TextareaField("ExtraStyles");
 		$ExtraStyles->addExtraClass("elastic");
@@ -133,9 +102,6 @@ class Element extends DataObject {
 			$Suffix
 		);
 		
-		if($this->hasExtension("Versioned")) {
-			$fs->push(new DropdownField("Versions", "Versions", $this->VersionsMap()));
-		}
 		
 		$fg = new FieldGroup(
 			$fs,
