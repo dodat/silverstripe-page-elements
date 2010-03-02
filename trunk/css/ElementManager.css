@@ -1,10 +1,10 @@
+/** Edit & Add Form **/
 div.ExtraFields.field label.left {
 	background-color: #999;
 	padding: 5px;
 	color: #fff;
 	font-weight: bold;
 }
-
 
 div.ExtraFields.field div.middleColumn
 {
@@ -18,4 +18,18 @@ div.ExtraFields.field div.fieldgroupField {
 div.ExtraFields.field div.middleColumn label {
 	display: block;
 	
+}
+
+
+/** History browser **/
+
+
+.ElementHistoryBrowser table {
+	width: 200px;
+	float:left;
+}
+
+.ElementHistoryBrowser iframe#ElementPreview {
+	width: 50%;
+	float: left;
 }
