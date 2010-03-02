@@ -74,45 +74,23 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 	}
 	
 	function history() {
-		
-		//print_r($this->dataObj());
+		if($this->dataObj()->hasMethod('getRequirementsForPopup')) {
+			$this->dataObj()->getRequirementsForPopup();
+		}
 		$this->dataObj()->flushCache();
 		
-		//$Versions = Versioned::get_all_versions($this->dataObj()->ClassName, $this->dataObj()->ID, "Stage");
-		//Versioned::Versions()
-		
-		//Versioned::$reading_stage = "Stage";
-		
-		$Versions = $this->dataObj()->allVersions();
-		foreach($Versions as $Version) {
-			
-			echo $Version->Version;
-			
-		}
-		
-		
-		
-		/**
-		<% control Versions %>$ClassName
-	<tr id="page-$RecordID-version-$Version" class="$EvenOdd $PublishedClass">
-		<td>$Version</td>
-		<td class="$LastEdited" title="$LastEdited.Ago - $LastEdited.Nice">$LastEdited.Ago</td>
-		<td>$Author.FirstName $Author.Surname.Initial</td>
-		<td>
-		<% if Published %>
-			<% if Publisher %>
-				$Publisher.FirstName $Publisher.Surname.Initial
-			<% else %>	
-				<% _t('UNKNOWN','Unknown') %>
-			<% end_if %>
-		<% else %>
-			<% _t('NOTPUB','Not published') %>
-		<% end_if %>
-		</td>			
-	</tr>
-	<% end_control %>**/
+		echo $this->customise(
+			array("DetailForm"=>$this->HistoryBrowser())
+		)->renderWith($this->ctf->templatePopup);
 	}
 	
+	
+	function HistoryBrowser($childID = null) {
+		
+		$childData = $this->dataObj();
+		
+		return $this->dataObj()->renderWith("ElementHistory");	
+	}
 	
 	
 	
