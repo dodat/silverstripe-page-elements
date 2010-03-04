@@ -80,6 +80,13 @@ class SlotManager_Controller extends Controller {
 			} else {
 				$Element = Versioned::get_version("Element", $ID, (int)$Version);
 			}
+			
+			$Page = $Element->Slot()->GridPage();
+			Page_Controller::init();
+			
+			return $this->customise(
+					array("Element" => $Element->renderWith($Page->Template))
+					)->renderWith("Element_preview");
 			return $Element->forCMSTemplate();
 		}
 	}
