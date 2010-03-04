@@ -22,18 +22,27 @@ jQuery(function($) {
                         
                         var Element = $container.attr("id").match(/(.+)[-=_](.+)/);
                         
-			
+						$("table tbody tr").mouseover(function() {
+								$(this).addClass("over");
+						}).mouseout(function() {
+								$(this).removeClass("over");
+						}).click(function(){
+								$(this).find("a.defaultaction").click();
+						});
+						
                         $("table tbody tr a", $container).click(function() {
                                 var Action = $(this).attr("class");
-                                var Version = $(this).parents("tr").attr("id").match(/(.+)[-=_](.+)/);
-                                var url = "SlotManager/"+Action+"/"+Element[2]+"/"+Version[2];
+                                //var Version = $(this).parents("tr").attr("id").match(/(.+)[-=_](.+)/);
+                                //var url = "SlotManager/"+Action+"/"+Element[2]+"/"+Version[2];
+								var url = $(this).attr("href");
                                 if(Action == "revertElement") {
-                                                if (confirm("are you sure?")) {
-                                                $.post(url);
-                                                }
+										if (confirm("are you sure?")) {
+												$.post(url);
+										}
                                 } else {
-                                                console.log(url);
-                                                $("iframe#ElementPreview", $container).attr("src", url);
+                                        $("tr",$container).removeClass("current");
+										$(this).parents("tr").addClass("current");
+                                        $("iframe#ElementPreview", $container).attr("src", url);
                                 }
                                 return false;
                         });
