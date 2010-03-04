@@ -74,6 +74,15 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 	}
 	
 	function history() {
+		
+		
+		Requirements::css(SAPPHIRE_DIR . '/css/Form.css');
+		Requirements::css(SAPPHIRE_DIR . '/css/ComplexTableField_popup.css');
+		Requirements::css(CMS_DIR . '/css/typography.css');
+		Requirements::css(CMS_DIR . '/css/cms_right.css');
+		
+		
+		
 		if($this->dataObj()->hasMethod('getRequirementsForPopup')) {
 			$this->dataObj()->getRequirementsForPopup();
 		}
@@ -85,10 +94,8 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 	}
 	
 	
-	function HistoryBrowser($childID = null) {
-		
+	function HistoryBrowser() {
 		$childData = $this->dataObj();
-		
 		return $this->dataObj()->renderWith("ElementHistory");	
 	}
 	
