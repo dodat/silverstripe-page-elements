@@ -227,6 +227,14 @@ class Element extends DataObject {
 		return SSPE_DIR . "/images/Element_undo.png";
 	}
 	
+	function PreviewIcon() {
+		return SSPE_DIR . "/images/Element_preview.png";
+	}
+	
+	function RevertIcon() {
+		return $this->HistoryIcon();
+	}
+	
 	
 	//TODO: This could be nicer!
 	function Link() {
@@ -252,5 +260,6 @@ class Element extends DataObject {
 	function HistoryLink() {
 		return $this->Link()."item/".$this->ID."/history/";
 	}
+	
 	
 }
