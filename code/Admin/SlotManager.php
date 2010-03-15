@@ -71,4 +71,32 @@ class SlotManager_Controller extends Controller {
 		}
 	}
 	
+	function previewVersion() {
+		if(Permission::check("CMS_ACCESS_CMSMain")) {
+			$Version = $this->urlParams['Name'];
+			$ID = (int)$this->urlParams['ID'];
+			if($Version == "Stage") {
+				$Element = Versioned::get_one_by_stage("Element", "Stage", array("ID"=>$ID));
+			} else {
+				$Element = Versioned::get_version("Element", $ID, (int)$Version);
+			}
+			
+			$Page = $Element->Slot()->GridPage();
+			Page_Controller::init();
+			
+			return $this->customise(
+					array("Element" => $Element->renderWith($Page->Template))
+					)->renderWith("Element_preview");
+			return $Element->forCMSTemplate();
+		}
+	}
+	
+	function revertElement() {
+		if(Permission::check("CMS_ACCESS_CMSMain")) {
+			$Element = DataObject::get_by_id("Element", (int)$this->urlParams['ID']);
+			$Element->publish((int)$this->urlParams['Name'], "Stage", true);
+		}
+	}
+	
+	
 }

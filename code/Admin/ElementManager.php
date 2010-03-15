@@ -49,10 +49,7 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 		$form->saveInto($dataObject);
 		$dataObject->write();
 		
-		if($dataObject->hasExtension("Versioned")) {
-			// publishing versioned
-			$dataObject->publish("Stage", "Live");
-		}
+		$dataObject->flushCache();
 		
 		$referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
 		$closeLink = sprintf(
@@ -67,8 +64,67 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 		);
 		
 		$form->sessionMessage($message, 'good');
-
 		Director::redirectBack();
+	}
+	
+	function publish() {
+		//TODO Permission check to come here
+		$this->dataObj()->publish("Stage", "Live");
+		$this->dataObj()->flushCache();
+	}
+	
+	function history() {
+		
+		
+		Requirements::css(SAPPHIRE_DIR . '/css/Form.css');
+		Requirements::css(SAPPHIRE_DIR . '/css/ComplexTableField_popup.css');
+		Requirements::css(CMS_DIR . '/css/typography.css');
+		Requirements::css(CMS_DIR . '/css/cms_right.css');
+		
+		
+		
+		if($this->dataObj()->hasMethod('getRequirementsForPopup')) {
+			$this->dataObj()->getRequirementsForPopup();
+		}
+		$this->dataObj()->flushCache();
+		
+		echo $this->customise(
+			array("DetailForm"=>$this->HistoryBrowser())
+		)->renderWith($this->ctf->templatePopup);
+	}
+	
+	
+	function HistoryBrowser() {
+		$childData = $this->dataObj();
+		return $this->dataObj()->renderWith("ElementHistory");	
+	}
+	
+	
+	
+	function versions() {
+		$pageID = $this->urlParams['ID'];
+		$page = $this->getRecord($pageID);
+		if($page) {
+			$versions = $page->allVersions($_REQUEST['unpublished'] ? "" : "`SiteTree`.WasPublished = 1");
+			return array(
+				'Versions' => $versions,
+			);
+		} else {
+			return sprintf(_t('CMSMain.VERSIONSNOPAGE',"Can't find page #%d",PR_LOW),$pageID);
+		}
+	}
+
+	/**
+	 * Roll a page back to a previous version
+	 */
+	function rollback() {
+		if(isset($_REQUEST['Version']) && (bool)$_REQUEST['Version']) {
+			$record = $this->performRollback($_REQUEST['ID'], $_REQUEST['Version']);
+			echo sprintf(_t('CMSMain.ROLLEDBACKVERSION',"Rolled back to version #%d.  New version number is #%d"),$_REQUEST['Version'],$record->Version);
+		} else {
+			$record = $this->performRollback($_REQUEST['ID'], "Live");
+			echo sprintf(_t('CMSMain.ROLLEDBACKPUB',"Rolled back to published version. New version number is #%d"),$record->Version);
+		}
 	}
 	
 }

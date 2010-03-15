@@ -25,40 +25,35 @@ class Element extends DataObject {
 	static $default_sort = "SortOrder";
 	
 	
-	/*
-	static $extensions = array(
-		"Versioned('Stage', 'Live')"
-	);
-	
 	static $versioning = array(
 		"Stage",  "Live"
 	);	
-	*/
 	
 	
-	function __construct() {
-		
-		if($this->stat("is_versioned", true)) {
-			self::addStaticVars(get_class($this), array(
-				"extensions" => array(
-					"Versioned('Stage', 'Live')"
-				),
-				"versioning" => array(
-					"Stage",  "Live"
-				)
-			));
-		} 
-		
-		$args = func_get_args();
-		call_user_func_array(array($this, 'parent::__construct'), $args);
+	static function setVersioning($ElementClasses) {
+		foreach((array)$ElementClasses as $ElementClass) {
+			if(class_exists($ElementClass)) {
+				Object::add_extension($ElementClass, "Versioned('Stage', 'Live')");
+			} else {
+				trigger_error("Element class ".$ElementClass." not found");
+			}
+			
+		}
 	}
 	
-	//not working properly at this stage
-	static $is_versioned = false;
-
-
-	static function setVersioning($bool = false) {
-		self::$is_versioned = $bool;
+	
+	function canPublish() {
+		if($this->hasExtension("Versioned")) {
+			//TODO: implement security check
+			if($this->stagesDiffer('Stage', 'Live')) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	function hasVersions() {
+		return $this->hasExtension("Versioned");
 	}
 	
 	
@@ -95,15 +90,6 @@ class Element extends DataObject {
 	}
 	
 	
-	function VersionsMap() {
-		$arr = array();
-		foreach($this->allVersions() as $Version) {
-			$arr[$Version->Version] = "Version #{$Version->Version} - ".$Version->obj("LastEdited")->ago();
-		}
-		return $arr;
-	}
-	
-	
 	public function getExtraCMSFields() {
 		$ExtraStyles = new TextareaField("ExtraStyles");
 		$ExtraStyles->addExtraClass("elastic");
@@ -121,9 +107,6 @@ class Element extends DataObject {
 			$Suffix
 		);
 		
-		if($this->hasExtension("Versioned")) {
-			$fs->push(new DropdownField("Versions", "Versions", $this->VersionsMap()));
-		}
 		
 		$fg = new FieldGroup(
 			$fs,
@@ -235,6 +218,24 @@ class Element extends DataObject {
 	}
 	
 	
+	function PublishIcon() {
+		return SSPE_DIR . "/images/Element_publish.png";
+	}
+	
+	
+	function HistoryIcon() {
+		return SSPE_DIR . "/images/Element_undo.png";
+	}
+	
+	function PreviewIcon() {
+		return SSPE_DIR . "/images/Element_preview.png";
+	}
+	
+	function RevertIcon() {
+		return $this->HistoryIcon();
+	}
+	
+	
 	//TODO: This could be nicer!
 	function Link() {
 		return Director::absoluteBaseURL()."admin/EditForm/field/Slots/item/".$this->SlotID."/DetailForm/field/Elements/";
@@ -248,6 +249,16 @@ class Element extends DataObject {
 	
 	function DeleteLink() {
 		return $this->Link()."item/".$this->ID."/delete/";
+	}
+	
+	
+	function PublishLink() {
+		return $this->Link()."item/".$this->ID."/publish/";
+	}
+	
+	
+	function HistoryLink() {
+		return $this->Link()."item/".$this->ID."/history/";
 	}
 	
 	
