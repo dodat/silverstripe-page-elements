@@ -1,9 +1,9 @@
 <% control Elements %>
  <% if Hidden != true %>
   <div class="$parentClass $ClassName<% if ExtraClass %> $ExtraClass<% end_if %>"<% if ExtraStyles %> style="$ExtraStyles"<% end_if %> id="$HTMLID">
-   $Prefix
+   $Prefix.RAW
    $Me
-   $Suffix
+   $Suffix.RAW
   </div>
  <% else %>
   $Me
