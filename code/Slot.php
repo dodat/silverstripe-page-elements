@@ -1,4 +1,5 @@
 <?php
+
 class Slot extends DataObject {
 	
 	
@@ -20,45 +21,7 @@ class Slot extends DataObject {
 	}
 	
 	function forTemplate() {
-		
-		$Content = "";
-		if($this->Elements() && $Elements = $this->Elements()){
-			foreach($Elements as $Element) {
-				if($Element instanceof HiddenElement) {
-					$Element->forTemplate();
-					continue;
-				}
-				
-				$ExtraAttrs = array();
-				
-				$ID = $Element->HTMLID();
-				
-				$Classes = array(
-					$Element->parentClass(),
-					$Element->ClassName
-				 );
-				
-				(!empty($Element->ExtraClass)?$Classes[] = $Element->ExtraClass:"");
-				
-				if(!empty($Element->ExtraStyles) && $ExtraStyles = $Element->ExtraStyles) {
-					$ExtraAttrs[] = "style=\"{$ExtraStyles}\"";
-				}
-				
-				$ClassStr = implode(" ", $Classes);
-				$ExtraStr = implode(" ", $ExtraAttrs);
-				
-				$Content .=<<<HTML
-				
-<div class="{$ClassStr}" {$ExtraStr} id="{$ID}">
-	{$Element->Prefix}
-	{$Element->forTemplate()}
-	{$Element->Suffix}
-</div>
-		
-HTML;
-			}
-		}
-		return $Content;
+		return $this->renderWith("Slot");
 	}
 	
 	

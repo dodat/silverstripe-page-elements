@@ -58,6 +58,14 @@ class Element extends DataObject {
 	
 	
 	/**
+	 * returns @bool instance of HiddenElement interface
+	 */
+	function Hidden() {
+		return $this instanceof HiddenElement;
+	}
+	
+	
+	/**
 	 * needs param $SlotID to set the parent manually caused by weird things on ComplexTableField @ l550
 	 * and Element in order to get the custom fields
 	 */
