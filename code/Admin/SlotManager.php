@@ -32,10 +32,10 @@ class SlotManager extends ComplexTableField {
 	}
 	
 	
-	
 	public function Slot($Name) {
-		return $this->Items()->find("Name",$Name);
+		return $this->Items()->find("Name",$Name)->forCMSTemplate();
 	}
+	
 	
 	function Template() {
 		if($Template = $this->controller->Template) {

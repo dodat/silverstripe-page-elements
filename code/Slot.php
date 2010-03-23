@@ -14,10 +14,12 @@ class Slot extends DataObject {
 		"GridPage" => "GridPage"
 	);
 	
+	
+	function forCMSTemplate() {
+		return $this->renderWith("Slot_cms");
+	}
+	
 	function forTemplate() {
-		if(Director::get_site_mode() == "cms") {
-			return $this->renderWith("Slot_cms");
-		}
 		
 		$Content = "";
 		if($this->Elements() && $Elements = $this->Elements()){

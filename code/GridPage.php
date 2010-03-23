@@ -88,6 +88,7 @@ JS
 				$this->ReadSlotsFromTemplate($this->Template);
 			}
 		}
+		$this->Content = $this->forTemplate();
 		return parent::onBeforeWrite();
 	}
 	
