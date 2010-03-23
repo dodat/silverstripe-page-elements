@@ -69,16 +69,14 @@ class HTMLElementEditorField extends TextareaField
 	}
 	
 	public function FieldHolder() {
-		
-		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
+		Requirements::javascript(SSPE_DIR.'/javascript/jquery-1.4.2.min.js');
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.wysiwyg.js');
 		Requirements::css(SSPE_DIR.'/css/jquery.wysiwyg.css');
 		Requirements::customScript("
-			jQuery(function() {
 				jQuery('#{$this->id()}').wysiwyg({
 					{$this->getConfig()}
 				}).parents('.htmlelementeditor').removeClass('hidden');
-			});
+			
 		");
 		return parent::FieldHolder();		
 	}	
