@@ -134,15 +134,17 @@ JS
 	
 	
 	public function forTemplate() {
-		if(SSViewer::getTemplateFileByType($this->Template, 'Layout')) {
-			return $this->renderWith($this->Template);
-		} else {
-			SSViewer::flush_template_cache();
+		if($this->isValidTemplate($this->Template)) {
 			if(SSViewer::getTemplateFileByType($this->Template, 'Layout')) {
 				return $this->renderWith($this->Template);
 			} else {
-				$this->Template = "";
-				$this->write();
+				SSViewer::flush_template_cache();
+				if(SSViewer::getTemplateFileByType($this->Template, 'Layout')) {
+					return $this->renderWith($this->Template);
+				} else {
+					$this->Template = "";
+					$this->write();
+				}
 			}
 		}
 	}
