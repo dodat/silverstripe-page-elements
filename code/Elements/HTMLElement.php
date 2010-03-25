@@ -2,7 +2,7 @@
 
 class HTMLElement extends Element {
 	
-	static $NiceName = "Html Text";
+	static $NiceName = "Wysiwyg";
 	
 	static $db = array(
 		"Content" => "HTMLText"
