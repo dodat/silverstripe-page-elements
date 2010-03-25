@@ -87,8 +87,8 @@ JS
 			if(isset($this->changed['Template']) && $this->changed['Template']) {
 				$this->ReadSlotsFromTemplate($this->Template);
 			}
+			$this->Content = $this->forTemplate();
 		}
-		$this->Content = $this->forTemplate();
 		return parent::onBeforeWrite();
 	}
 	
