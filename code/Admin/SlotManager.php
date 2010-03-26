@@ -33,7 +33,7 @@ class SlotManager extends ComplexTableField {
 	
 	
 	public function Slot($Name) {
-		if($Slot = $this->Items()->find("Name",$Name){
+		if($Slot = $this->Items()->find("Name",$Name)) {
 		   return $Slot->forCMSTemplate();
 		}
 	}
