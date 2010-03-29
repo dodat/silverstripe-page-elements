@@ -72,13 +72,16 @@ class HTMLElementEditorField extends TextareaField
 		
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.wysiwyg.js');
+		
 		Requirements::css(SSPE_DIR.'/css/jquery.wysiwyg.css');
 		Requirements::customScript("
-			jQuery(function($) {
-				$('#{$this->id()}').wysiwyg({
+			var j = jQuery.noConflict();
+			console.log(j);
+			//jQuery(function() {
+				jQuery('#{$this->id()}').wysiwyg({
 					{$this->getConfig()}
 				}).parents('.htmlelementeditor').removeClass('hidden');
-			});
+			//});
 		");
 		return parent::FieldHolder();		
 	}	

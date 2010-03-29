@@ -167,6 +167,13 @@ class Element extends DataObject {
 	
 	
 	public function getRequirementsForPopup() {
+		
+		Requirements::block("assets/base.js");
+		Requirements::block("assets/leftandmain.js");
+		Requirements::block("sapphire/javascript/ComplexTableField_popup.js");
+		Requirements::block("jsparty/leftandmain.js");
+		Requirements::block("jsparty/scriptaculous/scriptaculous.js");
+		
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.min.js');
 		Requirements::javascript(SSPE_DIR."/javascript/ElementManager.js");
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.elastic.js');
