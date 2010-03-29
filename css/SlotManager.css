@@ -86,6 +86,11 @@
 	min-height: 80px;
 }
 
+.SlotManager div.Element-holder
+{
+	outline:1px dashed #666;
+}
+
 .SlotManager .Element table,
 .SlotManager table.SlotHeader
 {
