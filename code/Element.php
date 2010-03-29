@@ -167,7 +167,7 @@ class Element extends DataObject {
 	
 	
 	public function getRequirementsForPopup() {
-		Requirements::javascript(SSPE_DIR.'/javascript/jquery-1.4.2.min.js');
+		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.min.js');
 		Requirements::javascript(SSPE_DIR."/javascript/ElementManager.js");
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.elastic.js');
 		Requirements::customScript("jQuery(\"textarea.elastic\").elastic();");
