@@ -11,9 +11,9 @@ jQuery(function($) {
                 
 
 	$.fn.ElementHistory = function() {
-	//	this.each(function() {
+		this.each(function() {
 			$.fn.ElementHistory.init(this);
-	//	});
+		});
 	};
 		
 		$.fn.ElementHistory.init = function(obj) {
