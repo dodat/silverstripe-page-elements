@@ -178,6 +178,9 @@ class Element extends DataObject {
 		Requirements::javascript(SSPE_DIR."/javascript/ElementManager.js");
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.elastic.js');
 		Requirements::customScript("jQuery(\"textarea.elastic\").elastic();");
+		Requirements::javascript(SSPE_DIR.'/javascript/jquery.textarea.js');
+		Requirements::customScript("jQuery(\"textarea.tabby\").tabby();");
+		
 		Requirements::css(SSPE_DIR."/css/ElementManager.css");
 	}
 	

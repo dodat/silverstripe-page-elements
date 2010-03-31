@@ -29,7 +29,7 @@ class HTMLElementEditorField extends TextareaField
 
 	function __construct($name, $title = null, $config = array(), $rows = 5, $cols = 55, $value = "", $form = null) {
 		parent::__construct($name, $title, $rows, $cols, $value, $form);
-		$this->extraClasses = array('hidden');
+		$this->extraClasses = array('hidden', "tabby");
 		if(!empty($config)) {
 			foreach($config as $k => $v) {
 				if($k == "css") $this->css = $v;
