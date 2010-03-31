@@ -419,7 +419,7 @@
 			$(element).height($(window).height()-250);
 			
 			var newX = element.width || element.clientWidth || 0;
-			var newY = element.height || element.clientHeight || 0;
+			var newY = (element.height || element.clientHeight || 0) +9;
 			
 
 			if ( element.nodeName.toLowerCase() == 'textarea' )
