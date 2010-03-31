@@ -385,6 +385,7 @@
 					{
 						this.focus();
 					}
+					console.log(this.editorDoc);
 					this.editorDoc.execCommand('removeFormat', false, []);
 					this.editorDoc.execCommand('unlink', false, []);
 				},
@@ -414,9 +415,12 @@
 			this.options = options || {};
 
 			$.data(element, 'wysiwyg', this);
-
+			
+			$(element).height($(window).height()-250);
+			
 			var newX = element.width || element.clientWidth || 0;
 			var newY = element.height || element.clientHeight || 0;
+			
 
 			if ( element.nodeName.toLowerCase() == 'textarea' )
 			{
@@ -679,8 +683,12 @@
 
 		getContent : function()
         {
+			
             var markup = $( $(this.editor).document() ).find('body').html();
-            return markup.replace(/<br>/g, '<br/>').replace(/<BR>/g, '<br/>');
+			markup = markup.replace(/<br>|<BR>/g, '<br/>');
+			markup = markup.replace(/\n/g, "").replace(/(<\/(?!(?:a|b|i)\b)[^>]+>|<[^>]+\/>)/g, "$1\n");
+			return markup;
+			
         },
 
 		setContent : function( newContent )
@@ -734,6 +742,7 @@
 					.addClass(className || cmd)
 					.attr('title', tooltip)
 			).click(function() {
+				
 				if ( fn )
 				{
 					fn.apply(self);

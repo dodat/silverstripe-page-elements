@@ -20,6 +20,10 @@ div.ExtraFields.field div.middleColumn label {
 	
 }
 
+textarea#ComplexTableField_Popup_DetailForm_Content {
+	font-size: 14px;
+}
+
 
 /** History browser **/
 
