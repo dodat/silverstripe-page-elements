@@ -686,7 +686,7 @@
 			
             var markup = $( $(this.editor).document() ).find('body').html();
 			markup = markup.replace(/<br>|<BR>/g, '<br/>');
-			markup = markup.replace(/\n/g, "").replace(/(<\/(?!(?:a|b|i)\b)[^>]+>|<[^>]+\/>)/g, "$1\n");
+			markup = markup.replace(/>\n/g, ">").replace(/(<\/(?!(?:a|b|i)\b)[^>]+>|<[^>]+\/>)/g, "$1\n");
 			return markup;
 			
         },
