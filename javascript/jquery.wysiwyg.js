@@ -416,7 +416,7 @@
 
 			$.data(element, 'wysiwyg', this);
 			
-			$(element).height($(window).height()-250);
+			$(element).height($(window).height()-300);
 			
 			var newX = element.width || element.clientWidth || 0;
 			var newY = (element.height || element.clientHeight || 0) +9;
