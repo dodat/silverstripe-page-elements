@@ -4,9 +4,6 @@
  * turn on versioning by adding
  * Element::setVersioning("Element");
  * to your mysite/_config.php
- * You can also set enable it for individual elements
- * by passing an array of classnames:
- * Element::setVersioning(array("HTMLElement", "RawTextElement"));
  */
 
 
