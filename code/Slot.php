@@ -55,7 +55,8 @@ class Slot extends DataObject {
 	
 	
 	function AddIcon() {
-		return SSPE_DIR . "/images/Element_add.png";
+		//return SSPE_DIR . "/images/Element_add.png";
+		return "http://www.page-elements.com/page-elements/images/Element_add.png";
 	}
 	
 	
