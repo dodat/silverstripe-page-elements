@@ -2,7 +2,7 @@
 
 /**
  * turn on versioning by adding
- * Element::setVersioning("Element");
+ * Element::set_versioning("Element");
  * to your mysite/_config.php
  */
 
