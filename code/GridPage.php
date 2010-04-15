@@ -30,6 +30,15 @@ class GridPage extends Page {
 		return $temp; 
 	}
 	
+	function ThemeDir() {
+		if($theme = SSViewer::current_theme()) {
+			return THEMES_DIR . "/$theme";
+		} elseif($theme = ElementExtension::$theme) {
+			return THEMES_DIR . "/$theme";
+		} else {
+			throw new Exception("cannot detect theme");
+		}
+	}
 	
 	function isValidTemplate($Template) {
 		return array_key_exists($Template, $this->getSelectableTemplates());
