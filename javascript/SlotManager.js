@@ -1,6 +1,5 @@
 
-(function($) {
-	$(document).ready(function() {
+jQuery(function($) {
 		
 		$.fn.SlotManager = function() {
 			this.each(function() {
@@ -23,7 +22,6 @@
 			});
 			
 			$("div.Slot", $container).livequery(function() {
-				
 				$(this).sortable({
 					items: 'div.Element',
 					handle: 'td.handle',
@@ -49,16 +47,10 @@
 			
 		}
 		
-		
-		
 		$("div.SlotManager").livequery(function() {
 			$(this).SlotManager();
 		});
-	
-		
-	
-	});
-})(jQuery);
+});
 
 
 
