@@ -17,7 +17,7 @@
 				</td>
 				<td class="name editable">$Name</td>
 				<td class="type"><small>$ClassNiceName</small></td>
-				<% if hasVersions %>
+				<% if isVersioned %>
 				<td class="actions icon">
 					<a href="$HistoryLink" class="popuplink historylink" title="View history for Element `$Name`">
 						<img src="$HistoryIcon" alt="View history for Element `$Name`" title="View history for Element `$Name`"/>

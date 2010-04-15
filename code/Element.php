@@ -52,8 +52,14 @@ class Element extends DataObject {
 		return false;
 	}
 	
-	function hasVersions() {
+	
+	function isVersioned() {
 		return $this->hasExtension("Versioned");
+	}
+	
+	
+	function is_versioned() {
+		return Object::has_extension("Element", "Versioned");
 	}
 	
 	
