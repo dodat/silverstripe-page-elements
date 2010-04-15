@@ -84,7 +84,9 @@ JS
 	
 	public function onBeforeWrite() {
 		if($this->ID && $this->Template) {
-			if(isset($this->changed['Template']) && $this->changed['Template']) {
+			//$changed = $this->changed; old way
+			$changed = $this->getChangedFields();
+			if(isset($changed['Template']) && $changed['Template']) {
 				$this->ReadSlotsFromTemplate($this->Template);
 			}
 			$this->Content = $this->forTemplate();
@@ -149,7 +151,7 @@ JS
 		}
 	}
 	
-	
+	/*
 	function publish($fromStage, $toStage, $createNewVersion = false) {
 		foreach($this->Slots() as $Slot) {
 			foreach($Slot->Elements()  as $Element) {
@@ -161,6 +163,7 @@ JS
 		
 		$this->extension_instances['Versioned']->publish($fromStage, $toStage, $createNewVersion);
 	}
+	*/
 	
 }
 
