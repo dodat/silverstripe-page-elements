@@ -35,6 +35,7 @@ class SlotManager extends ComplexTableField {
 	
 	
 	public function Slot($Name) {
+		
 		if($this->Items()) {
 			if($Slot = $this->Items()->find("Name",$Name)) {
 				return $Slot->forCMSTemplate();
@@ -44,7 +45,9 @@ class SlotManager extends ComplexTableField {
 	
 	
 	function Template() {
-		if($Template = $this->controller->Template) {
+		if($TemplateFile = $this->controller->TemplateAbsFile()) {
+			$contents = file_get_contents($TemplateFile);
+			$Template = new SSViewer_FromString($contents);
 			return $this->renderWith($Template);
 		}
 		return "Please choose a Template";
