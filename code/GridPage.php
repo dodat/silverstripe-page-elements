@@ -177,7 +177,7 @@ JS
 		}
 	}
 	*/
-	/*
+	
 	function publish($fromStage, $toStage, $createNewVersion = false) {
 		if(Element::is_versioned()) {
 			foreach($this->Slots() as $Slot) {
@@ -188,11 +188,12 @@ JS
 				}
 			}
 		}
-		
-		
-		return $this->getExtensionInstance('Versioned'->publish($fromStage, $toStage, $createNewVersion);
-		//return parent::publish($fromStage, $toStage, $createNewVersion);
-	}*/
+		// temporary fix until bug in ss 2.4rc1 is resolved:
+		// http://open.silverstripe.org/ticket/5112
+		$ext = $this->getExtensionInstance('Versioned');
+		$ext->setOwner($this);
+		return $ext->publish($fromStage, $toStage, $createNewVersion);
+	}
 	
 	
 }
