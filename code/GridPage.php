@@ -65,8 +65,10 @@ JS
 				$this->ReadSlotsFromTemplate($this->Template);
 			}
 			//saving the output in $Content to be found in search etc
-			$controller = new GridPage_Controller($this);
-			$this->Content = $controller->index();
+			//$controller = new GridPage_Controller($this);
+			//$this->Content = $controller->index();
+			$SSV = new SSViewer($this->TemplateAbsFile());
+			$this->Content = $SSV->process($this);
 		}
 		return parent::onBeforeWrite();
 	}
@@ -177,6 +179,15 @@ JS
 		}
 	}
 	*/
+	/*
+	function onBeforePublish() {
+		mail("tim@kelpdesign.com", "onbefore", "call");
+	}
+	
+	function onAfterPublish() {
+		mail("tim@kelpdesign.com", "onafter", "call");
+	}
+	*/
 	
 	function publish($fromStage, $toStage, $createNewVersion = false) {
 		if(Element::is_versioned()) {
@@ -207,7 +218,7 @@ class GridPage_Controller extends Page_Controller  {
 				$this->data()->ClassName,
 				"Page"
 			),
-		"Layout");
+			"Layout");
 	}
 	
 	
