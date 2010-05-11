@@ -22,9 +22,11 @@ class SlotManager extends ComplexTableField {
 	public function FieldHolder() {
 		$ret = parent::FieldHolder();
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
-		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.core.js");
-		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.draggable.js");
-		Requirements::javascript(THIRDPARTY_DIR."/jquery/ui/ui.sortable.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-ui/jquery.ui.core.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-ui/jquery.ui.widget.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-ui/jquery.ui.mouse.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-ui/jquery.ui.draggable.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-ui/jquery.ui.sortable.js");
 		Requirements::javascript(SSPE_DIR."/javascript/SlotManager.js");
 		Requirements::javascript(SSPE_DIR."/javascript/jquery.editable-1.3.3.js");
 		Requirements::css(SSPE_DIR."/css/SlotManager.css");
@@ -33,14 +35,19 @@ class SlotManager extends ComplexTableField {
 	
 	
 	public function Slot($Name) {
-		if($Slot = $this->Items()->find("Name",$Name)) {
-		   return $Slot->forCMSTemplate();
+		
+		if($this->Items()) {
+			if($Slot = $this->Items()->find("Name",$Name)) {
+				return $Slot->forCMSTemplate();
+			}
 		}
 	}
 	
 	
 	function Template() {
-		if($Template = $this->controller->Template) {
+		if($TemplateFile = $this->controller->TemplateAbsFile()) {
+			$contents = file_get_contents($TemplateFile);
+			$Template = new SSViewer_FromString($contents);
 			return $this->renderWith($Template);
 		}
 		return "Please choose a Template";

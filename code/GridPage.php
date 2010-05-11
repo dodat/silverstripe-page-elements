@@ -11,31 +11,6 @@ class GridPage extends Page {
 	);
 	
 	
-	public function getSelectableTemplates() {
-		$temp = array("" => "None");
-		$pre = "GridPage";
-		
-		if($TemplateFiles = glob(Director::getAbsFile($this->ThemeDir())."/templates/Layout/$pre*.ss")) {
-			foreach($TemplateFiles as $TemplateFile) {
-				$filename = basename($TemplateFile, ".ss");
-				if($filename != $pre) {
-					$filenicename = substr($filename, strpos($filename, "_")+1);
-				} else {
-					$filenicename = "Default";
-				}
-				$filenicename = str_replace("cols", " Columns", $filenicename);
-				$temp[$filename] = ucwords($filenicename);
-			}
-		}
-		return $temp; 
-	}
-	
-	
-	function isValidTemplate($Template) {
-		return array_key_exists($Template, $this->getSelectableTemplates());
-	}
-	
-	
 	public function getCMSFields(){
 		$fs = parent::getCMSFields();
 		
@@ -84,10 +59,16 @@ JS
 	
 	public function onBeforeWrite() {
 		if($this->ID && $this->Template) {
-			if(isset($this->changed['Template']) && $this->changed['Template']) {
+			//$changed = $this->changed; old way
+			$changed = $this->getChangedFields();
+			if(isset($changed['Template']) && $changed['Template']) {
 				$this->ReadSlotsFromTemplate($this->Template);
 			}
-			$this->Content = $this->forTemplate();
+			//saving the output in $Content to be found in search etc
+			//$controller = new GridPage_Controller($this);
+			//$this->Content = $controller->index();
+			$SSV = new SSViewer($this->TemplateAbsFile());
+			$this->Content = $SSV->process($this);
 		}
 		return parent::onBeforeWrite();
 	}
@@ -109,9 +90,58 @@ JS
 	}
 	
 	
+	
+	public function getSelectableTemplates() {
+		$temp = array("" => "None");
+		$pre = "GridPage";
+		
+		if($TemplateFiles = glob(Director::getAbsFile($this->TemplateDir()).$pre."*.ss")) {
+			foreach($TemplateFiles as $TemplateFile) {
+				$filename = basename($TemplateFile, ".ss");
+				if($filename != $pre) {
+					$filenicename = substr($filename, strpos($filename, "_")+1);
+				} else {
+					$filenicename = "Default";
+				}
+				$filenicename = str_replace("col", " Column", $filenicename);
+				$temp[$filename] = ucwords($filenicename);
+			}
+		}
+		return $temp; 
+	}
+	
+	/** Template File functions required since 2.4 resets the theme in cms mode */
+	
+	function TemplateFile() {
+		return $this->TemplateDir().$this->Template.".ss";
+	}
+	
+	function TemplateAbsFile() {
+		return Director::getAbsFile($this->TemplateFile());
+	}
+	
+	function TemplateDir() {
+		return $this->ThemeDir()."/templates/Layout/";
+	}
+	
+	function ThemeDir() {
+		if($theme = SSViewer::current_theme()) {
+			return THEMES_DIR . "/$theme";
+		} elseif($theme = ElementExtension::$theme) {
+			return THEMES_DIR . "/$theme";
+		} else {
+			throw new Exception("cannot detect theme");
+		}
+	}
+	
+	function isValidTemplate($Template) {
+		return array_key_exists($Template, $this->getSelectableTemplates());
+	}
+	
+	
+	
 	protected function ReadSlotsFromTemplate($Template) {
-		$file = SSViewer::getTemplateFileByType($Template, 'Layout');
-		$cont = file_get_contents($file);
+		$cont = file_get_contents($this->TemplateAbsFile());
 		$cont = str_replace('$Slot', '$createSlot', $cont);
 		$ssv = new SSViewer_FromString($cont);
 		
@@ -132,8 +162,8 @@ JS
 		return $Slot;
 	}
 	
-	
-	public function forTemplate() {
+	/**
+	public function asdforTemplate() {
 		if($this->isValidTemplate($this->Template)) {
 			if(SSViewer::getTemplateFileByType($this->Template, 'Layout')) {
 				return $this->renderWith($this->Template);
@@ -142,25 +172,40 @@ JS
 				if(SSViewer::getTemplateFileByType($this->Template, 'Layout')) {
 					return $this->renderWith($this->Template);
 				} else {
-					$this->Template = "";
-					$this->write();
+					//$this->Template = "";
+					//$this->write();
 				}
 			}
 		}
 	}
+	*/
+	/*
+	function onBeforePublish() {
+		mail("tim@kelpdesign.com", "onbefore", "call");
+	}
 	
+	function onAfterPublish() {
+		mail("tim@kelpdesign.com", "onafter", "call");
+	}
+	*/
 	
 	function publish($fromStage, $toStage, $createNewVersion = false) {
-		foreach($this->Slots() as $Slot) {
-			foreach($Slot->Elements()  as $Element) {
-				if($Element->hasExtension("Versioned")) {
-					$Element->publish($fromStage, $toStage, $createNewVersion);
+		if(Element::is_versioned()) {
+			foreach($this->Slots() as $Slot) {
+				foreach($Slot->Elements() as $Element) {
+					if($Element->hasExtension("Versioned")) {
+						$Element->publish($fromStage, $toStage, $createNewVersion);
+					}
 				}
 			}
 		}
-		
-		$this->extension_instances['Versioned']->publish($fromStage, $toStage, $createNewVersion);
+		// temporary fix until bug in ss 2.4rc1 is resolved:
+		// http://open.silverstripe.org/ticket/5112
+		$ext = $this->getExtensionInstance('Versioned');
+		$ext->setOwner($this);
+		return $ext->publish($fromStage, $toStage, $createNewVersion);
 	}
+	
 	
 }
 
@@ -173,7 +218,7 @@ class GridPage_Controller extends Page_Controller  {
 				$this->data()->ClassName,
 				"Page"
 			),
-		"Layout");
+			"Layout");
 	}
 	
 	
