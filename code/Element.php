@@ -30,7 +30,7 @@ class Element extends DataObject {
 	);	
 	
 	
-	static function setVersioning($ElementClasses) {
+	static function set_versioning($ElementClasses) {
 		foreach((array)$ElementClasses as $ElementClass) {
 			if(class_exists($ElementClass)) {
 				Object::add_extension($ElementClass, "Versioned('Stage', 'Live')");
