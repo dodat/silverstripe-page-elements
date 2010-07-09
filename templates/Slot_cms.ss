@@ -43,15 +43,11 @@
 				</td>
 			</tr>
 		</table>
-		<table class="SlotContent">
-			<tr>
-				<td>
-				$Prefix.RAW
-				$forCMSTemplate
-				$Suffix.RAW
-				</td>
-			</tr>
-		</table>	
+		<div class="ElementContent">
+			$Prefix.RAW
+			$forCMSTemplate
+			$Suffix.RAW
+		</div>
 	</div>
 <% end_control %>
 </div>

@@ -34,7 +34,7 @@ jQuery(function($) {
 				});
 			});
 			
-			$("table.SlotContent a").click(function(){
+			$("table.ElementContent a").click(function(){
 				return false;
 			});
 			
