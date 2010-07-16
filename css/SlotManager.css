@@ -127,7 +127,8 @@ div.SlotManager .container_16
 {
 	/**width: 960px !important;**/
 	background-color: #999;
-	outline: 1px solid #666;	
+	outline: 1px solid #666;
+	padding-top: 10px;
 }
 
 
