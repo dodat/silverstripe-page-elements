@@ -22,6 +22,7 @@ class SlotManager extends ComplexTableField {
 	public function FieldHolder() {
 		$ret = parent::FieldHolder();
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-livequery/jquery.livequery.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery-ui/jquery.ui.core.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery-ui/jquery.ui.widget.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery-ui/jquery.ui.mouse.js");
