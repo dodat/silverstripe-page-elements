@@ -329,10 +329,12 @@
 			"h1mozilla" : { "visible": true && $.browser.mozilla, "className": 'h1', "command": 'heading', arguments : ['h1'], "tags": ['h1'], "tooltip": "Header 1" },
 			"h2mozilla" : { "visible": true && $.browser.mozilla, "className": 'h2', "command": 'heading', arguments : ['h2'], "tags": ['h2'], "tooltip": "Header 2" },
 			"h3mozilla" : { "visible": true && $.browser.mozilla, "className": 'h3', "command": 'heading', arguments : ['h3'], "tags": ['h3'], "tooltip": "Header 3" },
+			"h4mozilla" : { "visible": true && $.browser.mozilla, "className": 'h4', "command": 'heading', arguments : ['h4'], "tags": ['h4'], "tooltip": "Header 4" },
 
 			"h1" : { "visible": true && !( $.browser.mozilla ), "className": 'h1', "command": 'formatBlock', arguments : ['<H1>'], "tags": ['h1'], "tooltip": "Header 1" },
 			"h2" : { "visible": true && !( $.browser.mozilla ), "className": 'h2', "command": 'formatBlock', arguments : ['<H2>'], "tags": ['h2'], "tooltip": "Header 2" },
 			"h3" : { "visible": true && !( $.browser.mozilla ), "className": 'h3', "command": 'formatBlock', arguments : ['<H3>'], "tags": ['h3'], "tooltip": "Header 3" },
+			"h4" : { "visible": true && !( $.browser.mozilla ), "className": 'h4', "command": 'formatBlock', arguments : ['<H4>'], "tags": ['h4'], "tooltip": "Header 4" },
 
 			separator07 : { "visible": false, "separator": true },
 
