@@ -162,33 +162,6 @@ JS
 		return $Slot;
 	}
 	
-	/**
-	public function asdforTemplate() {
-		if($this->isValidTemplate($this->Template)) {
-			if(SSViewer::getTemplateFileByType($this->Template, 'Layout')) {
-				return $this->renderWith($this->Template);
-			} else {
-				SSViewer::flush_template_cache();
-				if(SSViewer::getTemplateFileByType($this->Template, 'Layout')) {
-					return $this->renderWith($this->Template);
-				} else {
-					//$this->Template = "";
-					//$this->write();
-				}
-			}
-		}
-	}
-	*/
-	/*
-	function onBeforePublish() {
-		mail("tim@kelpdesign.com", "onbefore", "call");
-	}
-	
-	function onAfterPublish() {
-		mail("tim@kelpdesign.com", "onafter", "call");
-	}
-	*/
-	
 	function publish($fromStage, $toStage, $createNewVersion = false) {
 		if(Element::is_versioned()) {
 			foreach($this->Slots() as $Slot) {
@@ -199,8 +172,7 @@ JS
 				}
 			}
 		}
-		// temporary fix until bug in ss 2.4rc1 is resolved:
-		// http://open.silverstripe.org/ticket/5112
+		
 		$ext = $this->getExtensionInstance('Versioned');
 		$ext->setOwner($this);
 		return $ext->publish($fromStage, $toStage, $createNewVersion);
