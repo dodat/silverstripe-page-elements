@@ -9,7 +9,7 @@
 
 <div class="Slot $Name" id="Slot-$ID">
 <% control Elements %>
-	<div class="$parentClass $ClassName $HTMLID" id="$parentClass-$ID">
+	<div class="Element $ClassName $HTMLID" id="$parentClass-$ID">
 		<table class="ElementHeader">
 			<tr>
 				<td class="handle icon">
