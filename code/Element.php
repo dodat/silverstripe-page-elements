@@ -8,7 +8,8 @@ class Element extends DataObject {
 		"ExtraClass" => "Varchar",
 		"ExtraStyles" => "Text",
 		"Prefix" => "Text",
-		"Suffix" => "Text"
+		"Suffix" => "Text",
+		"CanViewType" => "Enum('Anyone, LoggedInUsers, NotLoggedInUsers', 'Anyone')"
 	);
 	
 	
@@ -108,11 +109,18 @@ class Element extends DataObject {
 		$Suffix = new TextareaField("Suffix");
 		$Suffix->addExtraClass("elastic");
 		
+		$viewersOptionsField = new OptionsetField(
+			"CanViewType", 
+			"Who can view this element",
+			$this->obj("CanViewType")->EnumValues()
+		);
+		
 		$fs = new FieldSet(
 			new TextField("ExtraClass"),
 			$ExtraStyles,
 			$Prefix,
-			$Suffix
+			$Suffix,
+			$viewersOptionsField
 		);
 		
 		
@@ -138,6 +146,32 @@ class Element extends DataObject {
 		
 	}
 	
+	public function canView($member = null) {
+		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) $member = Member::currentUser();
+		
+		// check for any logged-in users
+		if($this->CanViewType == 'LoggedInUsers' && $member) {
+			return true;
+		}
+		
+		// admin override
+		if($member && Permission::checkMember($member, "ADMIN")) {
+		//	return true;
+		}
+		
+		// check for empty spec
+		if(!$this->CanViewType || $this->CanViewType == 'Anyone') {
+			return true;
+		}
+		
+		if($this->CanViewType == "NotLoggedInUsers" && !$member) {
+			return true;
+		}
+		
+
+		
+		return false;
+	}
 	
 	/** Overwrite with custom permission check **/
 	function canCreate() {
@@ -157,7 +191,9 @@ class Element extends DataObject {
 	
 	
 	public function forTemplate() {
-		return $this->renderWith($this->RecordClassName);
+		if($this->canView()) {
+			return $this->renderWith($this->RecordClassName);
+		}
 	}
 	
 	
@@ -186,6 +222,9 @@ class Element extends DataObject {
 	
 	
 	public function forCMSTemplate() {
+		if(!$this->canView()) {
+			return "This element is restricted to <i>{$this->CanViewType}</i>";
+		}
 		return $this->forTemplate();
 	}
 	
