@@ -264,21 +264,17 @@ class Element extends DataObject {
 		return SSPE_DIR . "/images/Element_edit.png";
 	}
 	
-	
 	function DeleteIcon() {
 		return SSPE_DIR . "/images/Element_delete.png";
 	}
-	
 	
 	function DragIcon() {
 		return SSPE_DIR . "/images/Element_drag.png";
 	}
 	
-	
 	function PublishIcon() {
 		return SSPE_DIR . "/images/Element_publish.png";
 	}
-	
 	
 	function HistoryIcon() {
 		return SSPE_DIR . "/images/Element_undo.png";
@@ -298,25 +294,20 @@ class Element extends DataObject {
 		return Director::absoluteBaseURL()."admin/EditForm/field/Slots/item/".$this->SlotID."/DetailForm/field/Elements/";
 	}
 	
-	
 	function EditLink() {
 		return $this->Link()."item/".$this->ID."/edit/";
 	}
-	
 	
 	function DeleteLink() {
 		return $this->Link()."item/".$this->ID."/delete/";
 	}
 	
-	
 	function PublishLink() {
 		return $this->Link()."item/".$this->ID."/publish/";
 	}
 	
-	
 	function HistoryLink() {
 		return $this->Link()."item/".$this->ID."/history/";
 	}
-	
 	
 }
