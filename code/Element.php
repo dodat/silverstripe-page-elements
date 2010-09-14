@@ -191,9 +191,7 @@ class Element extends DataObject {
 	
 	
 	public function forTemplate() {
-		if($this->canView()) {
-			return $this->renderWith($this->RecordClassName);
-		}
+		return $this->renderWith($this->RecordClassName);
 	}
 	
 	
