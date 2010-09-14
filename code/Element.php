@@ -62,6 +62,7 @@ class Element extends DataObject {
 	 * returns @bool instance of HiddenElement interface
 	 */
 	function Hidden() {
+		if(!$this->canView()) { return false; }
 		return $this instanceof HiddenElement;
 	}
 	
