@@ -19,18 +19,9 @@
 // @code_url http://jwysiwyg.googlecode.com/svn/trunk/jwysiwyg/jquery.wysiwyg.js
 // ==/ClosureCompiler==
 
-(function( $ )
-{
-	/**
-	 * @constructor
-	 * @private
-	 */
-	var Wysiwyg = function( element, options )
-	{
-		this.init(element, options);
-	};
-
-	$['fn']['document'] = function()
+jQuery(function($){
+	
+	$.fn.document = function()
 	{
 		var element = this.get(0);
 
@@ -46,7 +37,7 @@
 		return this;
 	};
 
-	$['fn']['documentSelection'] = function()
+	$.fn.documentSelection = function()
 	{
 		var element = this.get(0);
 
@@ -60,7 +51,7 @@
 		}
 	};
 
-	$['fn']['wysiwyg'] = function( options )
+	$.fn.wysiwyg = function( options )
 	{
 		if ( arguments.length > 0 && arguments[0].constructor == String )
 		{
@@ -92,10 +83,10 @@
 		 * If the user set custom controls, we catch it, and merge with the
 		 * defaults controls later.
 		 */
-		if (options && options['controls'])
+		if (options && options.controls)
 		{
-			controls = options['controls'];
-			delete options['controls'];
+			controls = options.controls;
+			delete options.controls;
 		}
 
 		options = $.extend({
@@ -113,17 +104,17 @@
 		}, options);
 
 		options['messages'] = $.extend(true, options['messages'], Wysiwyg['MSGS_EN']);
-		options['controls'] = $.extend(true, options['controls'], Wysiwyg['TOOLBAR']);
+		options.controls = $.extend(true, options.controls, Wysiwyg['TOOLBAR']);
 
 		for (var control in controls)
 		{
-			if (control in options['controls'])
+			if (control in options.controls)
 			{
-				$.extend(options['controls'][control], controls[control]);
+				$.extend(options.controls[control], controls[control]);
 			}
 			else
 			{
-				options['controls'][control] = controls[control];
+				options.controls[control] = controls[control];
 			}
 		}
 
@@ -133,9 +124,17 @@
 			new Wysiwyg(this, options);
 		});
 	};
+	
+	function Wysiwyg( element, options )
+    {
+        return this instanceof Wysiwyg
+            ? this.init(element, options)
+            : new Wysiwyg(element, options);
+    }
+
 
 	$.extend(Wysiwyg, {
-		"insertImage" : function( szURL, attributes )
+		insertImage : function( szURL, attributes )
 		{
 			var self = $.data(this, 'wysiwyg');
 
@@ -167,7 +166,7 @@
 			}
 		},
 
-		"createLink" : function( szURL )
+		createLink : function( szURL )
 		{
 			var self = $.data(this, 'wysiwyg');
 
@@ -191,7 +190,7 @@
 			}
 		},
 
-		"insertHtml" : function( szHTML )
+		insertHtml : function( szHTML )
 		{
 			var self = $.data(this, 'wysiwyg');
 
@@ -214,29 +213,29 @@
 			}
 		},
 
-		"setContent" : function( newContent )
+		setContent : function( newContent )
 		{
 			var self = $.data(this, 'wysiwyg');
 				self.setContent( newContent );
 				self.saveContent();
 		},
 
-		"clear" : function()
+		clear : function()
 		{
 			var self = $.data(this, 'wysiwyg');
 				self.setContent('');
 				self.saveContent();
 		},
 
-		"MSGS_EN" : {
-			"nonSelection" : 'select the text you wish to link'
+		MSGS_EN : {
+			nonSelection : 'select the text you wish to link'
 		},
 
-		"TOOLBAR" : {
-			"bold"          : { "visible" : true, "tags" : ['b', 'strong'], "css" : { "fontWeight" : 'bold' }, "tooltip" : "Bold" },
-			"italic"        : { "visible" : true, "tags" : ['i', 'em'], "css" : { "fontStyle": 'italic' }, "tooltip" : "Italic" },
-			"strikeThrough" : { "visible" : true, "tags" : ['s', 'strike'], "css" : { "textDecoration" : 'line-through' }, "tooltip" : "Strike-through" },
-			"underline"     : { "visible" : true, "tags" : ['u'], "css" : { "textDecoration" : 'underline' }, "tooltip" : "Underline" },
+		TOOLBAR : {
+			bold          : { "visible" : true, "tags" : ['b', 'strong'], "css" : { "fontWeight" : 'bold' }, "tooltip" : "Bold" },
+			italic       : { "visible" : true, "tags" : ['i', 'em'], "css" : { "fontStyle": 'italic' }, "tooltip" : "Italic" },
+			strikeThrough : { "visible" : true, "tags" : ['s', 'strike'], "css" : { "textDecoration" : 'line-through' }, "tooltip" : "Strike-through" },
+			underline     : { "visible" : true, "tags" : ['u'], "css" : { "textDecoration" : 'underline' }, "tooltip" : "Underline" },
 
 			separator00 : { "visible": true, "separator": true },
 
@@ -320,8 +319,8 @@
 						}
 					}
 				},
-				"tags": ['img'],
-				"tooltip": "Insert image"
+				tags: ['img'],
+				tooltip: "Insert image"
 			},
 
 			separator06 : { "separator": true },
@@ -863,4 +862,4 @@
 			return false;
 		}
 	});
-})(jQuery);
+});
