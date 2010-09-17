@@ -70,15 +70,15 @@ class HTMLElementEditorField extends TextareaField
 	
 	public function FieldHolder() {
 		
-		Requirements::javascript(SSPE_DIR.'/javascript/jquery.1.3.js');
+		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
 		Requirements::javascript(SSPE_DIR.'/javascript/jquery.wysiwyg.js');
 		
 		Requirements::css(SSPE_DIR.'/css/jquery.wysiwyg.css');
 		Requirements::customScript("
 			jQuery.noConflict();
 			
-			jQuery(function() {
-				jQuery('#{$this->id()}').wysiwyg({
+			jQuery(function($) {
+				$('#{$this->id()}').wysiwyg({
 					{$this->getConfig()}
 				}).parents('.htmlelementeditor').removeClass('hidden');
 			});
