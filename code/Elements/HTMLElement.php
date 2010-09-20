@@ -10,22 +10,23 @@ class HTMLElement extends Element {
 	
 	
 	function getCMSFields() {
+		HtmlEditorConfig::set_active("elements");
 		return new FieldSet(
-			new HTMLElementEditorField(
-				"Content",
-				"Content",
-				array(
-					"css" => "/themes/".SSViewer::current_theme()."/css/typography.css"
-				),
-				15,
-				90
-			)
+			new HtmlEditorField("Content")
 		);
+	}
+	
+	
+	function getRequirementsForPopup() {
+		parent::getRequirementsForPopup();
+		HtmlEditorField::include_js();
 	}
 	
 	
 	function forTemplate() {
 		return $this->Content;
 	}
+	
+	
 	
 }
