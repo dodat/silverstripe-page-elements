@@ -8,7 +8,8 @@ class Element extends DataObject {
 		"ExtraClass" => "Varchar",
 		"ExtraStyles" => "Text",
 		"Prefix" => "Text",
-		"Suffix" => "Text"
+		"Suffix" => "Text",
+		"CanViewType" => "Enum('Anyone, LoggedInUsers, NotLoggedInUsers', 'Anyone')"
 	);
 	
 	
@@ -114,11 +115,18 @@ class Element extends DataObject {
 		$Suffix = new TextareaField("Suffix");
 		$Suffix->addExtraClass("elastic");
 		
+		$viewersOptionsField = new OptionsetField(
+			"CanViewType", 
+			"Who can view this element",
+			$this->obj("CanViewType")->EnumValues()
+		);
+		
 		$fs = new FieldSet(
 			new TextField("ExtraClass"),
 			$ExtraStyles,
 			$Prefix,
-			$Suffix
+			$Suffix,
+			$viewersOptionsField
 		);
 		
 		
@@ -199,6 +207,9 @@ JS
 	
 	
 	public function forCMSTemplate() {
+		if(!$this->canView()) {
+			return "This element is restricted to <i>{$this->CanViewType}</i>";
+		}
 		return $this->forTemplate();
 	}
 	
@@ -234,25 +245,46 @@ JS
 	}
 	
 	
+	public function canView($member = null) {
+		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) $member = Member::currentUser();
+		
+		// check for any logged-in users
+		if($this->CanViewType == 'LoggedInUsers' && $member) {
+			return true;
+		}
+		
+		// admin override
+		if($member && Permission::checkMember($member, "ADMIN")) {
+		//	return true;
+		}
+		
+		// check for empty spec
+		if(!$this->CanViewType || $this->CanViewType == 'Anyone') {
+			return true;
+		}
+		
+		if($this->CanViewType == "NotLoggedInUsers" && !$member) {
+			return true;
+		}
+			
+		return false;
+	}
+	
 	function EditIcon() {
 		return SSPE_DIR . "/images/Element_edit.png";
 	}
-	
 	
 	function DeleteIcon() {
 		return SSPE_DIR . "/images/Element_delete.png";
 	}
 	
-	
 	function DragIcon() {
 		return SSPE_DIR . "/images/Element_drag.png";
 	}
 	
-	
 	function PublishIcon() {
 		return SSPE_DIR . "/images/Element_publish.png";
 	}
-	
 	
 	function HistoryIcon() {
 		return SSPE_DIR . "/images/Element_undo.png";
@@ -266,27 +298,22 @@ JS
 		return $this->HistoryIcon();
 	}
 	
-	
 	//TODO: This could be nicer!
 	function Link() {
 		return Director::absoluteBaseURL()."admin/EditForm/field/Slots/item/".$this->SlotID."/DetailForm/field/Elements/";
 	}
 	
-	
 	function EditLink() {
 		return $this->Link()."item/".$this->ID."/edit/";
 	}
-	
 	
 	function DeleteLink() {
 		return $this->Link()."item/".$this->ID."/delete/";
 	}
 	
-	
 	function PublishLink() {
 		return $this->Link()."item/".$this->ID."/publish/";
 	}
-	
 	
 	function HistoryLink() {
 		return $this->Link()."item/".$this->ID."/history/";
