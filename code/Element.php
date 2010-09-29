@@ -216,11 +216,11 @@ JS
 	/**
 	* Required for SlotManager_Controller::previewVersion
 	* to replace Slot() call  in templates and only show
-	* the actual element's slot
+	* the actual element
 	**/
 	function previewSlot($name = null) {
 		if($this->Slot()->Name == $name) {
-			return $this->Slot();
+			return $this;
 		}
 	}
 	
