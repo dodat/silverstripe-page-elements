@@ -167,7 +167,9 @@ JS
 			foreach($this->Slots() as $Slot) {
 				foreach($Slot->Elements() as $Element) {
 					if($Element->hasExtension("Versioned")) {
-						$Element->publish($fromStage, $toStage, $createNewVersion);
+						$elEx = $Element->getExtensionInstance('Versioned');
+						$elEx->setOwner($Element);
+						$elEx->publish($fromStage, $toStage, $createNewVersion);
 					}
 				}
 			}
