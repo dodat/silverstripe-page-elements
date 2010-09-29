@@ -6,6 +6,8 @@ class SlotManager extends ComplexTableField {
 
 	
 	function __construct(GridPage $GridPage) {
+		//Prevent pagination from restricting the number of Slots to 10
+        $this->setShowPagination(false);
 		
 		parent::__construct(
 			$GridPage,
