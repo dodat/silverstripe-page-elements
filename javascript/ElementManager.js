@@ -36,8 +36,10 @@ jQuery(function($) {
                                 //var url = "SlotManager/"+Action+"/"+Element[2]+"/"+Version[2];
 								var url = $(this).attr("href");
                                 if(Action == "revertElement") {
-										if (confirm("are you sure?")) {
-												$.post(url);
+										if (confirm("Are you sure you want to revert to this version?")) {
+												$.post(url, function() {
+														window.top.GB_hide();
+												});
 										}
                                 } else {
                                         $("tr",$container).removeClass("current");
