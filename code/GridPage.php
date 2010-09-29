@@ -129,6 +129,8 @@ JS
 			return THEMES_DIR . "/$theme";
 		} elseif($theme = ElementExtension::$theme) {
 			return THEMES_DIR . "/$theme";
+		} elseif($theme = SiteConfig::current_site_config()->Theme ) {
+			return THEMES_DIR . "/$theme";
 		} else {
 			throw new Exception("cannot detect theme");
 		}
