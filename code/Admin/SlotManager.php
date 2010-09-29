@@ -94,10 +94,15 @@ class SlotManager_Controller extends Controller {
 			$Page = $Element->Slot()->GridPage();
 			Page_Controller::init();
 			
+			$PageTemplate = file_get_contents($Page->TemplateAbsFile());
+			$PageTemplate = str_replace('$Slot', '$previewSlot', $PageTemplate);
+			$PageSSViewer = new SSViewer_FromString($PageTemplate);
+			
 			return $this->customise(
-					array("Element" => $Element->renderWith($Page->Template))
-					)->renderWith("Element_preview");
-			return $Element->forCMSTemplate();
+				array("Element" =>
+					$Element->renderWith($PageSSViewer)
+				)
+			)->renderWith("Element_preview");
 		}
 	}
 	
