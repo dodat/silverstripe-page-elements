@@ -86,11 +86,10 @@ class SlotManager_Controller extends Controller {
 			$Version = $this->urlParams['Name'];
 			$ID = (int)$this->urlParams['ID'];
 			if($Version == "Stage") {
-				$Element = Versioned::get_one_by_stage("Element", "Stage", array("ID"=>$ID));
+				$Element = DataObject::get_by_id("Element", $ID);
 			} else {
 				$Element = Versioned::get_version("Element", $ID, (int)$Version);
 			}
-			
 			$Page = $Element->Slot()->GridPage();
 			Page_Controller::init();
 			
