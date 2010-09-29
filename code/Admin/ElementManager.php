@@ -73,6 +73,26 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 		$this->dataObj()->flushCache();
 	}
 	
+	function delete() {
+		if(Element::is_versioned()) {
+			/**
+			 * temporary deleting all versions.
+			 * including the live version
+			 * TODO: clearify interface to manage
+			 * elements with only a live version
+			 */
+			$this->deleteAllVersions();
+		}
+		return parent::delete();
+	}
+	
+	function deleteAllVersions() {
+		$this->dataObj()->deleteFromStage("Live"); 
+		foreach($this->dataObj()->allVersions() as $version) {
+			$version->delete();
+		}
+	}
+	
 	function history() {
 		
 		
