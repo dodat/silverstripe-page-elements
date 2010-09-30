@@ -38,6 +38,12 @@ class ElementManager extends ComplexTableField {
 		
 	}
 	
+	/** temporary fix for non superadmin users to edit elements **/
+	function can($action = null) {
+		return Permission::check("CMS_ACCESS_CMSMain");
+	}
+	
+	
 }
 
 class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {

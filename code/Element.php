@@ -158,6 +158,11 @@ class Element extends DataObject {
 		return Permission::check("CMS_ACCESS_CMSMain");
 	}
 	
+	/** temporary fix for non superadmin users to edit elements **/
+	function canEdit() {
+		return Permission::check("CMS_ACCESS_CMSMain");
+	}
+	
 	
 	/** to avoid confusion in TableListField **/
 	function getContent() {

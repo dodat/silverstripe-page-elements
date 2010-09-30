@@ -54,15 +54,19 @@ class Slot extends DataObject {
 	}
 	
 	
+	//TODO: needs review
 	function AddIcon() {
 		//return SSPE_DIR . "/images/Element_add.png";
 		return "http://www.page-elements.com/page-elements/images/Element_add.png";
 	}
 	
-	
-	//TODO: needs review
 	function AddLink() {
 		return "admin/EditForm/field/Slots/item/{$this->ID}/DetailForm/field/Elements/add/";
+	}
+	
+	/** temporary fix for non superadmin users to edit elements **/
+	function canEdit() {
+		return Permission::check("CMS_ACCESS_CMSMain");
 	}
 	
 }
