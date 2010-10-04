@@ -187,6 +187,11 @@ JS
 
 class GridPage_Controller extends Page_Controller  {
 	
+	function init() {
+		parent::init();
+		Requirements::css(SSPE_DIR."/css/960gs/960.css");
+	}
+	
 	function index() {
 		return $this->renderWith(
 			array(
