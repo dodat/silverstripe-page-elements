@@ -1,0 +1,9 @@
+copy these files in 
+<yourtheme>/templates/Layout/
+
+then open the cms admin, change the page type in the behaviour tab 
+to 'Gridpage' then save.
+You can then choose the template from the dropdown below.
+
+Please note that the static "Gridpage_"-prefix in the template file name 
+will be stripped in the admin.

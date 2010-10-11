@@ -1,0 +1,85 @@
+/** Edit & Add Form **/
+div.ExtraFields.field label.left {
+	background-color: #999;
+	padding: 5px;
+	color: #fff;
+	font-weight: bold;
+}
+
+div.ExtraFields.field div.middleColumn
+{
+	display: none;
+}
+
+div.ExtraFields.field div.fieldgroupField {
+	clear: both;
+}
+
+div.ExtraFields.field div.middleColumn label {
+	display: block;
+	
+}
+
+textarea#ComplexTableField_Popup_DetailForm_Content {
+	font-size: 14px;
+}
+
+
+/** History browser **/
+
+.ElementHistoryBrowser {
+	/*width:880px;*/
+	width: 100%;
+	margin: 0 auto;
+	
+}
+
+.ElementHistoryBrowser .historyTable {
+	/*width: 400px;*/
+	width: 45%;
+	float:left;
+	margin-right: 40px;
+	text-align: right;
+}
+
+.ElementHistoryBrowser .historyTable table {
+	width: 400px;
+	float:right;
+}
+
+.ElementHistoryBrowser a:hover {
+	background: none;
+}
+
+.ElementHistoryBrowser table tr.odd {
+	background: #ccc;
+}
+.ElementHistoryBrowser table tr.even {
+	background: #eee;
+}
+
+.ElementHistoryBrowser table tr.current{
+	background: #FFAAAA;
+}
+.ElementHistoryBrowser table tr.over {
+	background: #FFEAEA;
+}
+
+.ElementHistoryBrowser table tr td {
+	text-align: center;
+}
+
+.ElementHistoryBrowser .previewwindow {
+	min-width: 400px;
+	width: 45%;
+	height: 400px;
+	float: left;
+}
+
+.ElementHistoryBrowser iframe#ElementPreview {
+	width: 100%;
+	height: 400px;
+	border: 1px solid #ccc;
+	
+	
+}

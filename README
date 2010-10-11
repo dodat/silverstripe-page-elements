@@ -1,0 +1,29 @@
+###############################################
+Silverstripe Page Elements
+###############################################
+
+Maintainer Contact
+-----------------------------------------------
+Tim Klein
+<tim (at) page-elements (dot) com>
+
+Requirements
+-----------------------------------------------
+Silverstripe CMS 2.4.*
+
+Documentation
+-----------------------------------------------
+http://www.page-elements.com/documentation/
+
+Installation Instructions
+-----------------------------------------------
+make sure page elements is in the folder 
+"page-elements" in the root of your 
+silverstripe setup.
+
+For more info please visit:
+http://www.page-elements.com/installation/
+
+Usage Overview
+-----------------------------------------------
+http://www.page-elements.com/usage/
