@@ -1,13 +1,10 @@
-<div class="grid_9 prefix_3 breadcrumbs"><p>$Breadcrumbs</p></div>
-<div class="clear"></div>
-<div class="grid_3 sidebar">
-	$Slot(Sidebar)
-	&nbsp;
+<div class="grid_4 left">
+	$Slot(Left)
 </div>
 <div class="grid_4 main">
 	$Slot(Main)
 </div>
-<div class="grid_4 suffix_1 main">
+<div class="grid_4 right">
 	$Slot(Right)
 </div>
 <div class="clear"></div>
