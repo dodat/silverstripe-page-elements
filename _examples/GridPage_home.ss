@@ -9,6 +9,15 @@
 	$Slot(Middle)
 </div>
 <div class="grid_3 suffix_1">
-$Slot(Right)
+	$Slot(Right)
 </div>
+<div class="clear"></div>
+
+<div class="grid_6">
+	$Slot(LeftFooter)
+</div>
+<div class="grid_6">
+	$Slot(RightFooter)
+</div>
+
 <div class="clear"></div>
