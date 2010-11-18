@@ -79,14 +79,17 @@ JS
 		LeftAndMain::ForceReload();
 	}
 	
-	
-	public function onBeforeDelete() {
+	/**
+	 * this gets executed when the page is unpublished
+	 * need further investigation how to determine whether the 'actual' record is being deleted
+	 */ 
+	public function onAfterDelete() {
 		if($this->Slots() && $Slots = $this->Slots()) {
 			foreach($Slots as $Slot) {
-				$Slot->delete();
+				//$Slot->delete();
 			}
 		}
-		parent::onBeforeDelete();
+		parent::onAfterDelete();
 	}
 	
 	

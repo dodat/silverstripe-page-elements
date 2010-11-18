@@ -15,7 +15,7 @@ class SlotManager extends ComplexTableField {
 			"Slot",
 			array("Name" => "Name"),
 			'getCMSFields_forPopup',
-			"`GridPageID`='{$GridPage->ID}'"
+			"\"GridPageID\"='{$GridPage->ID}'"
 		);
 		
 	}

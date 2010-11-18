@@ -131,7 +131,7 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 		$pageID = $this->urlParams['ID'];
 		$page = $this->getRecord($pageID);
 		if($page) {
-			$versions = $page->allVersions($_REQUEST['unpublished'] ? "" : "`SiteTree`.WasPublished = 1");
+			$versions = $page->allVersions($_REQUEST['unpublished'] ? "" : "\"SiteTree\".\"WasPublished\" = 1");
 			return array(
 				'Versions' => $versions,
 			);

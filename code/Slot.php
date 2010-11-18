@@ -37,7 +37,7 @@ class Slot extends DataObject {
 					'Content' => 'Content'
 				),
 				"CMSFields",
-				"SlotID='{$this->ID}'"
+				"\"SlotID\"='{$this->ID}'"
 				)
 			);
 		return $fs;
