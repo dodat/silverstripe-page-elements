@@ -34,8 +34,14 @@ class ElementManager extends ComplexTableField {
 		}
 		$form->sessionMessage('Added successfully', 'good');
 		
-		Director::redirect($this->Link().'/item/'.$childData->ID.'/edit');
+		Director::redirect($this->handleItem($params)->Link("edit"));
+	}
+	
+	function asdLink($action = null) {
+ 		$parentUrlParts = parse_url(parent::Link());
+		$queryPart = (isset($parentUrlParts['query'])) ? '?' . $parentUrlParts['query'] : null;
 		
+		return Controller::join_links($parentUrlParts['path'], 'item', $this->item->ID, $action, $queryPart);
 	}
 	
 	/** temporary fix for non superadmin users to edit elements **/
@@ -89,7 +95,7 @@ class ElementManager_ItemRequest extends ComplexTableField_ItemRequest {
 			 */
 			$this->deleteAllVersions();
 		}
-		return parent::delete();
+		return $this->dataObj()->delete();
 	}
 	
 	function deleteAllVersions() {
