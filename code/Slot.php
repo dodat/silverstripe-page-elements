@@ -17,7 +17,11 @@ class Slot extends DataObject {
 	
 	
 	function forCMSTemplate() {
-		return $this->renderWith("Slot_cms");
+		if($this->canEdit()) {
+			return $this->renderWith("Slot_cms");
+		} else {
+			return $this->forTemplate();
+		}
 	}
 	
 	function forTemplate() {
@@ -64,9 +68,11 @@ class Slot extends DataObject {
 		return "admin/EditForm/field/Slots/item/{$this->ID}/DetailForm/field/Elements/add/";
 	}
 	
-	/** temporary fix for non superadmin users to edit elements **/
+	
 	function canEdit() {
-		return Permission::check("CMS_ACCESS_CMSMain");
+		if($gp = $this->GridPage()) {
+			return $gp->canEdit();
+		}
 	}
 	
 }
