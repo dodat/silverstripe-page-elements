@@ -31,11 +31,12 @@ class ElementManager extends ComplexTableField {
 		if($childData->hasExtension("Versioned")) {
 			// publishing versioned
 			$childData->publish("Stage", "Live");
-		}
+		} 
 		$form->sessionMessage('Added successfully', 'good');
 		
-		//Director::redirect($this->Link().'/item/'.$childData->ID.'/edit');
-		Director::redirect($this->handleItem($params)->Link("edit"));
+		$itemrq = new ElementManager_ItemRequest($this, $childData->ID);
+		
+		Director::redirect($itemrq->Link("edit"));
 		
 	}
 	
