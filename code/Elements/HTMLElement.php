@@ -10,7 +10,13 @@ class HTMLElement extends Element {
 	
 	
 	function getCMSFields() {
+		HtmlEditorConfig::get("elements")->setOption(
+			"content_css",
+			"/".GridPage::ThemeDir()."/css/editor.css"
+		);
+		
 		HtmlEditorConfig::set_active("elements");
+		
 		return new FieldSet(
 			new HtmlEditorField("Content")
 		);
