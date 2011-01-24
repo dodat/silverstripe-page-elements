@@ -251,7 +251,7 @@ JS
 		
 		// admin override
 		if($member && Permission::checkMember($member, "ADMIN")) {
-		//	return true;
+			return true;
 		}
 		
 		// check for empty spec
