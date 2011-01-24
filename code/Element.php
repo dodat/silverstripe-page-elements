@@ -279,8 +279,8 @@ JS
 	
 	
 	function canEdit() {
-		if($gp = $this->Slot()->GridPage()) {
-			return $gp->canEdit();
+		if($slot = $this->Slot()) {
+			return $slot->canEdit();
 		}
 		return false;
 	}
