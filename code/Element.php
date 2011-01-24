@@ -43,23 +43,12 @@ class Element extends DataObject {
 	}
 	
 	
-	function canPublish() {
-		if($this->hasExtension("Versioned")) {
-			//TODO: implement security check
-			if($this->stagesDiffer('Stage', 'Live')) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	
 	function isVersioned() {
 		return $this->hasExtension("Versioned");
 	}
 	
 	
-	function is_versioned() {
+	static function is_versioned() {
 		return Object::has_extension("Element", "Versioned");
 	}
 	
@@ -150,17 +139,6 @@ class Element extends DataObject {
 			new TextareaField("ExtraStyles")
 		);
 		
-	}
-	
-	
-	/** Overwrite with custom permission check **/
-	function canCreate() {
-		return Permission::check("CMS_ACCESS_CMSMain");
-	}
-	
-	/** temporary fix for non superadmin users to edit elements **/
-	function canEdit() {
-		return Permission::check("CMS_ACCESS_CMSMain");
 	}
 	
 	
@@ -259,6 +237,9 @@ JS
 		return $NiceName;
 	}
 	
+	/**
+	 * Permission methods, can be overwritten
+	 */
 	
 	public function canView($member = null) {
 		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) $member = Member::currentUser();
@@ -281,9 +262,36 @@ JS
 		if($this->CanViewType == "NotLoggedInUsers" && !$member) {
 			return true;
 		}
-			
+		
 		return false;
 	}
+	
+	
+	
+	function canPublish() {
+		if($this->hasExtension("Versioned")) {
+			if($this->stagesDiffer('Stage', 'Live')) {
+				return $this->canEdit();
+			}
+		}
+		return false;
+	}
+	
+	
+	function canEdit() {
+		if($gp = $this->Slot()->GridPage()) {
+			return $gp->canEdit();
+		}
+		return false;
+	}
+	
+	
+	function canCreate() {
+		return $this->canEdit();
+	}
+	
+	
+	
 	
 	function EditIcon() {
 		return SSPE_DIR . "/images/Element_edit.png";

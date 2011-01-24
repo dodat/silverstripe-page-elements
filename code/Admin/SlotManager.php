@@ -3,11 +3,11 @@
 class SlotManager extends ComplexTableField {
 	
 	public $template = "SlotManager";
-
+	
 	
 	function __construct(GridPage $GridPage) {
 		//Prevent pagination from restricting the number of Slots to 10
-        $this->setShowPagination(false);
+		$this->setShowPagination(false);
 		
 		parent::__construct(
 			$GridPage,
@@ -38,7 +38,6 @@ class SlotManager extends ComplexTableField {
 	
 	
 	public function Slot($Name) {
-		
 		if($this->Items()) {
 			if($Slot = $this->Items()->find("Name",$Name)) {
 				return $Slot->forCMSTemplate();
@@ -56,6 +55,11 @@ class SlotManager extends ComplexTableField {
 		return "Please choose a Template";
 	}
 	
+	// needed for $ThemeDir to work in templates
+	function ThemeDir() {
+		return GridPage::ThemeDir();
+	}
+	
 }
 
 class SlotManager_Controller extends Controller {
@@ -66,9 +70,11 @@ class SlotManager_Controller extends Controller {
 				foreach($_POST as $group => $map) { 
 					foreach($map as $sort => $ID) {
 						$Element = DataObject::get_by_id("Element", $ID);
-						$Element->SortOrder = $sort;
-						if($SlotID = (int)$this->urlParams['ID']) $Element->SlotID = $SlotID;
-						$Element->write();
+						if($Element->canEdit()) {
+							$Element->SortOrder = $sort;
+							if($SlotID = (int)$this->urlParams['ID']) $Element->SlotID = $SlotID;
+							$Element->write();
+						}
 					}
 				}
 			}
@@ -76,8 +82,9 @@ class SlotManager_Controller extends Controller {
 	}
 	
 	function editTitle() {
-		if(Permission::check("CMS_ACCESS_CMSMain")) {
-			$Element = DataObject::get_by_id("Element", (int)$_POST['ID']);
+		$Element = DataObject::get_by_id("Element", (int)$_POST['ID']);
+		
+		if($Element->canEdit()) {
 			$Element->Name = Convert::Raw2SQL($_POST['Name']);
 			$Element->write();
 		}
@@ -85,31 +92,35 @@ class SlotManager_Controller extends Controller {
 	
 	function previewVersion() {
 		if(Permission::check("CMS_ACCESS_CMSMain")) {
-			$Version = $this->urlParams['Name'];
+			$Version = (int)$this->urlParams['Name'];
 			$ID = (int)$this->urlParams['ID'];
 			if($Version == "Stage") {
 				$Element = DataObject::get_by_id("Element", $ID);
 			} else {
-				$Element = Versioned::get_version("Element", $ID, (int)$Version);
+				$Element = Versioned::get_version("Element", $ID, $Version);
 			}
-			$Page = $Element->Slot()->GridPage();
-			Page_Controller::init();
 			
-			$PageTemplate = file_get_contents($Page->TemplateAbsFile());
-			$PageTemplate = str_replace('$Slot', '$previewSlot', $PageTemplate);
-			$PageSSViewer = new SSViewer_FromString($PageTemplate);
-			
-			return $this->customise(
-				array("Element" =>
-					$Element->renderWith($PageSSViewer)
-				)
-			)->renderWith("Element_preview");
+			if($Element->canEdit()) {
+				$Page = $Element->Slot()->GridPage();
+				Page_Controller::init();
+				
+				$PageTemplate = file_get_contents($Page->TemplateAbsFile());
+				$PageTemplate = str_replace('$Slot', '$previewSlot', $PageTemplate);
+				$PageSSViewer = new SSViewer_FromString($PageTemplate);
+				
+				return $this->customise(
+					array("Element" =>
+						$Element->renderWith($PageSSViewer)
+					)
+				)->renderWith("Element_preview");
+			}
 		}
 	}
 	
 	function revertElement() {
-		if(Permission::check("CMS_ACCESS_CMSMain")) {
-			$Element = DataObject::get_by_id("Element", (int)$this->urlParams['ID']);
+		$Element = DataObject::get_by_id("Element", (int)$this->urlParams['ID']);
+		
+		if($Element->canEdit()) {
 			$Element->publish((int)$this->urlParams['Name'], "Stage", true);
 		}
 	}
