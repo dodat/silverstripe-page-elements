@@ -43,7 +43,7 @@
 				</td>
 			</tr>
 		</table>
-		<div class="ElementContent">
+		<div class="ElementContent" id="$HTMLID">
 			$Prefix.RAW
 			$forCMSTemplate
 			$Suffix.RAW
