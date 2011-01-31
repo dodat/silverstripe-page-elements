@@ -19,7 +19,7 @@ class Element extends DataObject {
 	
 	
 	static $defaults = array(
-		"Name" => "New Element"
+		"Name" => ""
 	);
 	
 	
