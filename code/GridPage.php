@@ -59,16 +59,15 @@ JS
 	
 	public function onBeforeWrite() {
 		if($this->ID && $this->Template) {
-			//$changed = $this->changed; old way
+		
 			$changed = $this->getChangedFields();
 			if(isset($changed['Template']) && $changed['Template']) {
 				$this->ReadSlotsFromTemplate($this->Template);
 			}
 			//saving the output in $Content to be found in search etc
-			//$controller = new GridPage_Controller($this);
-			//$this->Content = $controller->index();
 			$SSV = new SSViewer($this->TemplateAbsFile());
 			$this->Content = $SSV->process($this);
+			Requirements::clear();
 		}
 		return parent::onBeforeWrite();
 	}
@@ -144,7 +143,6 @@ JS
 	}
 	
 	
-	
 	protected function ReadSlotsFromTemplate($Template) {
 		$cont = file_get_contents($this->TemplateAbsFile());
 		$cont = str_replace('$Slot', '$createSlot', $cont);
@@ -164,7 +162,7 @@ JS
 			$Slot->GridPageID = $this->ID;
 			$Slot->write();
 		}
-		return $Slot;
+		return true;
 	}
 	
 	function publish($fromStage, $toStage, $createNewVersion = false) {
