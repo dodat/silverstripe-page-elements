@@ -14,15 +14,21 @@ class GridPage extends Page {
 	public function getCMSFields(){
 		$fs = parent::getCMSFields();
 		
-		$TemplateField = new DropdownField(
-			"Template",
-			"Template",
-			$this->getSelectableTemplates(),
-			$this->Template
-		);
+		$templates = $this->getSelectableTemplates();
 		
-		$fs->insertAfter($TemplateField, "ClassName");
+		if((!$this->Template) && $defaultKey = array_search("Default",$templates)) {
+			$this->Template = $defaultKey;
+			$this->write();
+		}
 		
+		$fs->insertAfter(
+			new DropdownField(
+				"Template",
+				"Template",
+				$templates,
+				$this->Template
+			),
+			"ClassName");
 		
 		if($this->Template && $this->isValidTemplate($this->Template)) {
 			$field = new SlotManager($this);
@@ -31,7 +37,6 @@ class GridPage extends Page {
 		}
 		
 		$fs->removeFieldFromTab("Root.Content.Main", "Content");
-		
 		$fs->addFieldToTab("Root.Content.Main", $field);
 		
 		Requirements::customScript(<<<JS
