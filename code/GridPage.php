@@ -12,8 +12,14 @@ class GridPage extends Page {
 	
 	static $SlotManager_template = "SlotManager";
 	
+	static $SlotManager_extra_css = array();
+	
 	public static function set_slotmanager_template($template) {
 		self::$SlotManager_template = $template;
+	}
+	
+	public static function add_slotmanager_css($file) {
+		self::$SlotManager_extra_css[] = $file;
 	}
 	
 	public function getCMSFields(){
@@ -41,6 +47,7 @@ class GridPage extends Page {
 		if($this->Template && $this->isValidTemplate($this->Template)) {
 			$field = new SlotManager($this);
 			$field->setTemplate(self::$SlotManager_template);
+			$field->extraCSS = self::$SlotManager_extra_css;
 		} else {
 			$field = new HeaderField("Please choose a Template.");
 		}
