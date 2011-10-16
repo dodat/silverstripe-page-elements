@@ -10,9 +10,17 @@ class GridPage extends Page {
 		"Slots" => "Slot"
 	);
 	
+	static $SlotManager_template = "SlotManager";
+	
+	public static function set_slotmanager_template($template) {
+		self::$SlotManager_template = $template;
+	}
 	
 	public function getCMSFields(){
 		$fs = parent::getCMSFields();
+		
+		//set theme to allow slotmanager template from current theme's directory
+		SSViewer::set_theme(SSViewer::current_custom_theme());
 		
 		$templates = $this->getSelectableTemplates();
 		
@@ -32,6 +40,7 @@ class GridPage extends Page {
 		
 		if($this->Template && $this->isValidTemplate($this->Template)) {
 			$field = new SlotManager($this);
+			$field->setTemplate(self::$SlotManager_template);
 		} else {
 			$field = new HeaderField("Please choose a Template.");
 		}
