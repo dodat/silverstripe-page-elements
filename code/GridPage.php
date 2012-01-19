@@ -135,6 +135,26 @@ JS
 	
 	/** Template File functions required since 2.4 resets the theme in cms mode */
 	
+	
+	/**
+	* Gridpage templates for use in the cms can be overridden by suffixing with _cms
+	* Eg. GridPage_home.ss for the frontend and GridPage_home_cms.ss for the cms
+	* This comes handy when using a different grid fw other than 960 on the frontend.
+	* Defaults to non suffixed template if unavailable.
+	*/
+	function CMSTemplateFile() {
+		return $this->TemplateDir().$this->Template."_cms.ss";
+	}
+	
+	function CMSTemplateAbsFile() {
+		$cms_template = Director::getAbsFile($this->CMSTemplateFile());
+		if(file_exists($cms_template)) {
+			return $cms_template;
+		} else {
+			return $this->TemplateAbsFile();
+		}
+	}
+	
 	function TemplateFile() {
 		return $this->TemplateDir().$this->Template.".ss";
 	}
