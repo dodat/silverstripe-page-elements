@@ -47,7 +47,8 @@ class SlotManager extends ComplexTableField {
 	
 	
 	function Template() {
-		if($TemplateFile = $this->controller->TemplateAbsFile()) {
+		if($TemplateFile = $this->controller->CMSTemplateAbsFile()) {
+			echo $TemplateFile;
 			$contents = file_get_contents($TemplateFile);
 			$Template = new SSViewer_FromString($contents);
 			return $this->renderWith($Template);
