@@ -121,6 +121,10 @@ JS
 		if($TemplateFiles = glob(Director::getAbsFile($this->TemplateDir()).$pre."*.ss")) {
 			foreach($TemplateFiles as $TemplateFile) {
 				$filename = basename($TemplateFile, ".ss");
+				//skip over cms templates
+				if(strpos($filename,"_cms")) {
+					continue;
+				}
 				if($filename != $pre) {
 					$filenicename = substr($filename, strpos($filename, "_")+1);
 				} else {
