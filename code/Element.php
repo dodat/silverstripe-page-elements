@@ -168,8 +168,8 @@ class Element extends DataObject {
 		Requirements::block("assets/base.js");
 		Requirements::block("assets/leftandmain.js");
 		Requirements::block("sapphire/javascript/ComplexTableField_popup.js");
-		Requirements::block("jsparty/leftandmain.js");
-		Requirements::block("jsparty/scriptaculous/scriptaculous.js");
+		Requirements::block(THIRDPARTY_DIR."/leftandmain.js");
+		Requirements::block(THIRDPARTY_DIR."/scriptaculous/scriptaculous.js");
 		
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
 		Requirements::javascript(SSPE_DIR."/javascript/ElementManager.js");
