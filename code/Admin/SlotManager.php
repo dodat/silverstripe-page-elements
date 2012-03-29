@@ -48,9 +48,8 @@ class SlotManager extends ComplexTableField {
 	
 	function Template() {
 		if($TemplateFile = $this->controller->CMSTemplateAbsFile()) {
-			$contents = file_get_contents($TemplateFile);
-			$Template = new SSViewer_FromString($contents);
-			return $this->renderWith($Template);
+			$template = basename($TemplateFile,".ss");
+			return $this->renderWith($template);
 		}
 		return "Please choose a Template";
 	}
@@ -85,7 +84,7 @@ class SlotManager_Controller extends Controller {
 		$Element = DataObject::get_by_id("Element", (int)$_POST['ID']);
 		
 		if($Element->canEdit()) {
-			$Element->Name = Convert::Raw2SQL($_POST['Name']);
+			$Element->Name = Convert::raw2sql($_POST['Name']);
 			$Element->write();
 		}
 	}
